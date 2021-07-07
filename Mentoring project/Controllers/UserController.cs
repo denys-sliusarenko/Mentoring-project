@@ -35,8 +35,7 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
-        public async Task<IActionResult> AddUser([FromBody] User user)
+        public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             try
             {
@@ -51,7 +50,7 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             try
@@ -66,7 +65,6 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPut]
-        [Route("update")]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
             try
