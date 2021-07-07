@@ -11,10 +11,10 @@ namespace Mentoring_project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
@@ -31,6 +31,10 @@ namespace Mentoring_project.Controllers
         public IActionResult GetUserById(int id)
         {
             var user = _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
             return Ok(user);
         }
 
@@ -39,14 +43,13 @@ namespace Mentoring_project.Controllers
         {
             try
             {
-                await  _userService.AddUser(user);
-                return Ok();
+                await _userService.CreateUser(user);
+                return Created($"{Request.Path.Value}/{user.UserId}", user);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
-
         }
 
         [HttpDelete]
@@ -55,8 +58,8 @@ namespace Mentoring_project.Controllers
         {
             try
             {
-               await _userService.DeleteUser(id);
-                return Ok();
+                await _userService.DeleteUser(id);
+                return NoContent();
             }
             catch (Exception ex)
             {

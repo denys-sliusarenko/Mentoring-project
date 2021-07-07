@@ -10,7 +10,7 @@ namespace Mentoring_project.Interfaces
     {
         IEnumerable<User> GetAll();
         User GetUserById(int id);
-        Task AddUser(User user);
+        Task CreateUser(User user);
         Task DeleteUser(int id);
         Task UpdateUser(User user);
     }

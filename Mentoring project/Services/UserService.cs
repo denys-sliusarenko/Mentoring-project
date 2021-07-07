@@ -16,7 +16,7 @@ namespace Mentoring_project.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddUser(User user)
+        public async Task CreateUser(User user)
         {
             _unitOfWork.UserRepository.Create(user);
             await _unitOfWork.SaveAsync();

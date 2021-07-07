@@ -100,7 +100,7 @@ namespace Mentoring_project.Test
                     LastName = "Simpson"
                 };
 
-                userService.AddUser(newUser).GetAwaiter().GetResult();
+                userService.CreateUser(newUser).GetAwaiter().GetResult();
                 var result = userService.GetAll();
 
                 //Assert
@@ -164,7 +164,7 @@ namespace Mentoring_project.Test
                 var existUser = context.Users.First();
 
                 //Assert
-                Assert.Throws<ArgumentException>(() => userService.AddUser(existUser).GetAwaiter().GetResult());
+                Assert.Throws<ArgumentException>(() => userService.CreateUser(existUser).GetAwaiter().GetResult());
             }
         }
 
