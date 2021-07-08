@@ -28,13 +28,10 @@ namespace Mentoring_project.Test
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
                 //Arrange
-                var uow = new Mock<IUnitOfWork>();
-                var userRepositoryMock = new Mock<UserRepository>(context);
-                uow.Setup(repo => repo.UserRepository).Returns(userRepositoryMock.Object);
-
-                var userService = new UserService(uow.Object);
+                var uow = new UnitOfWork(context);
+                var userService = new UserService(uow);
                 var expectedUser = context.Users.First();
-               
+
                 // Act
                 var result = userService.GetUserById(expectedUser.UserId);
 
@@ -49,11 +46,8 @@ namespace Mentoring_project.Test
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
                 //Arrange
-                var uow = new Mock<IUnitOfWork>();
-                var userRepositoryMock = new Mock<UserRepository>(context);
-                uow.Setup(repo => repo.UserRepository).Returns(userRepositoryMock.Object);
-
-                var userService = new UserService(uow.Object);
+                var uow = new UnitOfWork(context);
+                var userService = new UserService(uow);
                 int IdUser = int.MinValue;
 
                 // Act
@@ -83,14 +77,14 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void CreateUserTest()
+        public async Task CreateUserTest()
         {
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow);
-                int expectedCount = context.Users.Count()+1;
+                int expectedCount = context.Users.Count() + 1;
 
                 // Act
                 var newUser = new User()
@@ -100,7 +94,7 @@ namespace Mentoring_project.Test
                     LastName = "Simpson"
                 };
 
-                userService.CreateUser(newUser).GetAwaiter().GetResult();
+                await userService.CreateUser(newUser);
                 var allUsers = context.Users;
 
                 //Assert
@@ -111,7 +105,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void DeleteUserTest()
+        public async Task DeleteUserTest()
         {
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
@@ -122,7 +116,7 @@ namespace Mentoring_project.Test
                 int expectedCount = context.Users.Count() - 1;
 
                 // Act
-                userService.DeleteUser(idDeleteUser).GetAwaiter().GetResult();
+                await userService.DeleteUser(idDeleteUser);
                 var allUsers = context.Users;
 
                 //Assert
@@ -131,7 +125,7 @@ namespace Mentoring_project.Test
             }
         }
         [Fact]
-        public void DeleteNotExistUserTest()
+        public async Task DeleteNotExistUserTest()
         {
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
@@ -142,7 +136,7 @@ namespace Mentoring_project.Test
                 int expectedCount = context.Users.Count();
 
                 // Act
-                userService.DeleteUser(idDeleteUser).GetAwaiter().GetResult();
+                await userService.DeleteUser(idDeleteUser);
                 var allUsers = context.Users;
 
                 //Assert
@@ -151,7 +145,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void CreateExistUserTest()
+        public async Task CreateExistUserExceptionTest()
         {
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
@@ -164,12 +158,12 @@ namespace Mentoring_project.Test
                 var existUser = context.Users.First();
 
                 //Assert
-                Assert.Throws<ArgumentException>(() => userService.CreateUser(existUser).GetAwaiter().GetResult());
+                await Assert.ThrowsAsync<ArgumentException>(async () => await userService.CreateUser(existUser));
             }
         }
 
         [Fact]
-        public void UpdateUserTest()
+        public async Task UpdateUserTest()
         {
             using (var context = new DbProjectContext(_fixture.GetDbOptions()))
             {
@@ -179,11 +173,12 @@ namespace Mentoring_project.Test
 
                 // Act
                 var updateUser = context.Users.First();
+
                 updateUser.FirstName = Guid.NewGuid().ToString();
                 updateUser.LastName = Guid.NewGuid().ToString();
 
-                userService.UpdateUser(updateUser).GetAwaiter().GetResult();
-                var savedUser = context.Users.Find(updateUser.UserId);
+                await userService.UpdateUser(updateUser);
+                var savedUser = await context.Users.FindAsync(updateUser.UserId);
 
                 //Assert
                 Assert.Equal(updateUser, savedUser);
