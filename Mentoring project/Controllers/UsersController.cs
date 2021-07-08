@@ -1,4 +1,6 @@
-﻿using Mentoring_project.Entities;
+﻿using AutoMapper;
+using Mentoring_project.DTO;
+using Mentoring_project.Entities;
 using Mentoring_project.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +16,12 @@ namespace Mentoring_project.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UsersController(IUserService userService)
+        private readonly IMapper _mapper;
+
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -39,12 +44,13 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
+        public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
         {
             try
             {
-                await _userService.CreateUser(user);
-                return Created($"{Request.Path.Value}/{user.UserId}", user);
+                var newUser = _mapper.Map<User>(user);
+                await _userService.CreateUser(newUser);
+                return Created($"{Request.Path.Value}/{newUser.UserId}", newUser);
             }
             catch (Exception ex)
             {

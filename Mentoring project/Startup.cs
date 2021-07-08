@@ -1,4 +1,6 @@
+using AutoMapper;
 using Mentoring_project.Interfaces;
+using Mentoring_project.Mapper;
 using Mentoring_project.Repositories;
 using Mentoring_project.Services;
 using Microsoft.AspNetCore.Builder;
@@ -42,7 +44,16 @@ namespace Mentoring_project
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
-            
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+
             services.AddControllers(opt =>
             {
                 // remove formatter that turns nulls into 204 - No Content responses

@@ -95,18 +95,18 @@ namespace Mentoring_project.Test
                 // Act
                 var newUser = new User()
                 {
-                    UserId = 4,
+                    UserId = 0,
                     FirstName = "Homer",
                     LastName = "Simpson"
                 };
 
                 userService.CreateUser(newUser).GetAwaiter().GetResult();
-                var result = userService.GetAll();
+                var allUsers = context.Users;
 
                 //Assert
-                Assert.Equal(expectedCount, result.Count());
+                Assert.Equal(expectedCount, allUsers.Count());
 
-                Assert.Contains(newUser, result);
+                Assert.Contains(newUser, allUsers);
             }
         }
 
@@ -123,11 +123,11 @@ namespace Mentoring_project.Test
 
                 // Act
                 userService.DeleteUser(idDeleteUser).GetAwaiter().GetResult();
-                var result = userService.GetAll();
+                var allUsers = context.Users;
 
                 //Assert
-                Assert.Equal(expectedCount, result.Count());
-                Assert.DoesNotContain(result, u => u.UserId == idDeleteUser);
+                Assert.Equal(expectedCount, allUsers.Count());
+                Assert.DoesNotContain(allUsers, u => u.UserId == idDeleteUser);
             }
         }
         [Fact]
@@ -143,10 +143,10 @@ namespace Mentoring_project.Test
 
                 // Act
                 userService.DeleteUser(idDeleteUser).GetAwaiter().GetResult();
-                var result = userService.GetAll();
+                var allUsers = context.Users;
 
                 //Assert
-                Assert.Equal(expectedCount, result.Count());
+                Assert.Equal(expectedCount, allUsers.Count());
             }
         }
 
@@ -183,7 +183,7 @@ namespace Mentoring_project.Test
                 updateUser.LastName = Guid.NewGuid().ToString();
 
                 userService.UpdateUser(updateUser).GetAwaiter().GetResult();
-                var savedUser = context.Users.First();
+                var savedUser = context.Users.Find(updateUser.UserId);
 
                 //Assert
                 Assert.Equal(updateUser, savedUser);
