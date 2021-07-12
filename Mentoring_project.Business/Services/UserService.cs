@@ -1,46 +1,55 @@
-﻿using Mentoring_project.Business.Interfaces;
+﻿using AutoMapper;
+using Mentoring_project.Business.DTO;
+using Mentoring_project.Business.Interfaces;
 using Mentoring_project.Domain.Core.Entities;
 using Mentoring_project.Domain.Interfaces.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mentoring_project.Business.Services
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUserAsync(UserDTO userDto)
         {
+            var user = _mapper.Map<User>(userDto);
             _unitOfWork.UserRepository.Create(user);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
             _unitOfWork.UserRepository.Delete(id);
             await _unitOfWork.SaveAsync();
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserDTO> GetAll()
         {
-            return _unitOfWork.UserRepository.GetAll();
+            var users = _unitOfWork.UserRepository.GetAll();
+            var usersDto = _mapper.Map<IEnumerable<UserDTO>>(users);
+            return usersDto;
         }
 
-        public User GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
-            return _unitOfWork.UserRepository.Get(id);
+            var user = _unitOfWork.UserRepository.Get(id);
+            var userDto = _mapper.Map<UserDTO>(user);
+
+            return userDto;
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateUserAsync(UserDTO userDto)
         {
+            var user = _mapper.Map<User>(userDto);
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();
         }

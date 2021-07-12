@@ -1,18 +1,15 @@
-﻿using Mentoring_project.Domain.Core.Entities;
-using System;
+﻿using Mentoring_project.Business.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mentoring_project.Business.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<User> GetAll();
-        User GetUserById(int id);
-        Task CreateUser(User user);
-        Task DeleteUser(int id);
-        Task UpdateUser(User user);
+        IEnumerable<UserDTO> GetAll();
+        UserDTO GetUserById(int id);
+        Task CreateUserAsync(UserDTO user);
+        Task DeleteUserAsync(int id);
+        Task UpdateUserAsync(UserDTO user);
     }
 }

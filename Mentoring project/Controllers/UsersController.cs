@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using Mentoring_project.Business.DTO;
 using Mentoring_project.Business.Interfaces;
-using Mentoring_project.DTO;
+using Mentoring_project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -40,14 +41,14 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserDTO user)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
         {
             try
             {
-                return Ok();
-                //  var newUser = _mapper.Map<User>(user);
-                //  await _userService.CreateUser(newUser);
-                //  return Created($"{Request.Path.Value}/{newUser.UserId}", newUser);
+                var newUserDto = _mapper.Map<UserDTO>(user);
+                await _userService.CreateUserAsync(newUserDto);
+
+                return Created($"{Request.Path.Value}/{newUserDto.UserId}", newUserDto);
             }
             catch (Exception ex)
             {
@@ -61,7 +62,7 @@ namespace Mentoring_project.Controllers
         {
             try
             {
-                await _userService.DeleteUser(id);
+                await _userService.DeleteUserAsync(id);
                 return NoContent();
             }
             catch (Exception ex)
@@ -71,11 +72,12 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser(/*[FromBody] User user*/)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserViewModel user)
         {
             try
             {
-               // await _userService.UpdateUser(user);
+                var newUserDto = _mapper.Map<UserDTO>(user);
+                await _userService.UpdateUserAsync(newUserDto);
                 return Ok();
             }
             catch (Exception ex)

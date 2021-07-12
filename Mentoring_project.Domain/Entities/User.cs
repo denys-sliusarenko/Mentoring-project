@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Mentoring_project.Domain.Core.Entities
+﻿namespace Mentoring_project.Domain.Core.Entities
 {
     public class User
     {

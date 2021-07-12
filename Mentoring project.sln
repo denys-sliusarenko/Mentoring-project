@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D0FB0C6E-D50
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2C22BEAA-96CD-486C-AAD1-F3DA8ED5FE79}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mentoring_project.Core", "Mentoring_project.Core", "{ADEB7543-0A82-4B3C-B4C7-2187A961FE6D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mentoring_project.Domain", "Mentoring_project.Domain", "{ADEB7543-0A82-4B3C-B4C7-2187A961FE6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mentoring_project.Domain.Core", "Mentoring_project.Domain\Mentoring_project.Domain.Core.csproj", "{306E6783-1D8E-4C16-B9F5-3D8F016CC735}"
 EndProject
