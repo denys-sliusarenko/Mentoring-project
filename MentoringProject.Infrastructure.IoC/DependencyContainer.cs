@@ -1,4 +1,5 @@
-﻿using Mentoring_project.Business.Interfaces;
+﻿using AutoMapper;
+using Mentoring_project.Business.Interfaces;
 using Mentoring_project.Business.Services;
 using Mentoring_project.Domain.Interfaces.Repositories;
 using Mentoring_project.Infrastructure.Data.Data;
