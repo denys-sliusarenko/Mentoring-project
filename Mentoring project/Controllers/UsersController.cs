@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
+using Mentoring_project.Business.Interfaces;
 using Mentoring_project.DTO;
-using Mentoring_project.Entities;
-using Mentoring_project.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mentoring_project.Controllers
@@ -48,9 +44,10 @@ namespace Mentoring_project.Controllers
         {
             try
             {
-                var newUser = _mapper.Map<User>(user);
-                await _userService.CreateUser(newUser);
-                return Created($"{Request.Path.Value}/{newUser.UserId}", newUser);
+                return Ok();
+                //  var newUser = _mapper.Map<User>(user);
+                //  await _userService.CreateUser(newUser);
+                //  return Created($"{Request.Path.Value}/{newUser.UserId}", newUser);
             }
             catch (Exception ex)
             {
@@ -74,11 +71,11 @@ namespace Mentoring_project.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        public async Task<IActionResult> UpdateUser(/*[FromBody] User user*/)
         {
             try
             {
-                await _userService.UpdateUser(user);
+               // await _userService.UpdateUser(user);
                 return Ok();
             }
             catch (Exception ex)

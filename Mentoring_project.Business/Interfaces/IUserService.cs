@@ -1,10 +1,11 @@
-﻿using Mentoring_project.Entities;
+﻿using Mentoring_project.Domain.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.Interfaces
+namespace Mentoring_project.Business.Interfaces
 {
     public interface IUserService
     {

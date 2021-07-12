@@ -1,14 +1,15 @@
-﻿using Mentoring_project.Entities;
-using Mentoring_project.Interfaces;
-using Mentoring_project.Repositories;
+﻿using Mentoring_project.Business.Interfaces;
+using Mentoring_project.Domain.Core.Entities;
+using Mentoring_project.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.Services
+namespace Mentoring_project.Business.Services
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         public UserService(IUnitOfWork unitOfWork)

@@ -15,19 +15,7 @@ namespace Mentoring_project
     {
         public static void Main(string[] args)
         {
-            //  CreateHostBuilder(args).Build().Run();
-
-            var host = CreateHostBuilder(args).Build();
-          
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<DbProjectContext>();
-
-                DataGenerator.Initialize(services);
-            }
-
-            host.Run();
+             CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mentoring_project.Domain.Interfaces\Mentoring_project.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\Mentoring_project.Domain\Mentoring_project.Domain.Core.csproj" />
+  </ItemGroup>
+
+</Project>

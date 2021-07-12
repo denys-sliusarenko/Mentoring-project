@@ -1,15 +1,9 @@
-﻿using Mentoring_project;
-using Mentoring_project.Entities;
-using Mentoring_project.Interfaces;
-using Mentoring_project.Repositories;
-using Mentoring_project.Services;
+﻿using Mentoring_project.Domain.Core.Entities;
+using Mentoring_project.Infrastructure.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Tests
 {

@@ -1,23 +1,15 @@
 using AutoMapper;
-using Mentoring_project.Interfaces;
+using Mentoring_project.Infrastructure.Data.Data;
 using Mentoring_project.Mapper;
-using Mentoring_project.Repositories;
-using Mentoring_project.Services;
+using MentoringProject.Infrastructure.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mentoring_project
 {
@@ -39,11 +31,14 @@ namespace Mentoring_project
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring_project", Version = "v1" });
             });
+           
+            services.AddDbContext<DbProjectContext>(options =>
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DbMentoringProjectConnection"));
+            });
 
-            services.AddDbContext<DbProjectContext>(options => options.UseInMemoryDatabase(databaseName: "MentoringProjectDb"));
-            
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserService, UserService>();
+            DependencyContainer.RegisterServices(services);
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
