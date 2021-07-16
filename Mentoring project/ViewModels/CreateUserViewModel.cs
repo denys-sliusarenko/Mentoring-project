@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.ViewModels
+namespace MentoringProject.ViewModels
 {
     public class CreateUserViewModel
     {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Mentoring_project
+namespace MentoringProject
 {
     public class Program
     {

@@ -1,12 +1,7 @@
-﻿using Mentoring_project.Domain.Core.Entities;
+﻿using MentoringProject.Domain.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Mentoring_project.Infrastructure.Data.Data
+namespace MentoringProject.Infrastructure.Data.Data
 {
     public class DbProjectContext : DbContext
     {
@@ -40,7 +35,7 @@ namespace Mentoring_project.Infrastructure.Data.Data
                         FirstName = "Alice",
                         LastName = "Wolker"
                     }
-                }); ;
+                });
         }
     }
 }

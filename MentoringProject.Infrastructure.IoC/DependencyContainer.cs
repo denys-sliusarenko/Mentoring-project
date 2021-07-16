@@ -1,14 +1,8 @@
-﻿using AutoMapper;
-using Mentoring_project.Business.Interfaces;
-using Mentoring_project.Business.Services;
-using Mentoring_project.Domain.Interfaces.Repositories;
-using Mentoring_project.Infrastructure.Data.Data;
+﻿using MentoringProject.Application.Interfaces;
+using MentoringProject.Application.Services;
+using MentoringProject.Domain.Core.Repositories;
+using MentoringProject.Infrastructure.Data.Data;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Infrastructure.IoC
 {

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Mentoring_project.Business.DTO;
-using Mentoring_project.Business.Interfaces;
-using Mentoring_project.Domain.Core.Entities;
-using Mentoring_project.Domain.Interfaces.Repositories;
+using MentoringProject.Application.DTO;
+using MentoringProject.Application.Interfaces;
+using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Core.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.Business.Services
+namespace MentoringProject.Application.Services
 {
     public class UserService : IUserService
     {
@@ -19,11 +19,13 @@ namespace Mentoring_project.Business.Services
 
         }
 
-        public async Task CreateUserAsync(UserDTO userDto)
+        public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
         {
-            var user = _mapper.Map<User>(userDto);
-            _unitOfWork.UserRepository.Create(user);
+            var newUser = _mapper.Map<User>(userDto);
+            _unitOfWork.UserRepository.Create(newUser);
             await _unitOfWork.SaveAsync();
+            var createdUser = _mapper.Map<UserDTO>(newUser);
+            return createdUser;
         }
 
         public async Task DeleteUserAsync(int id)
@@ -47,11 +49,13 @@ namespace Mentoring_project.Business.Services
             return userDto;
         }
 
-        public async Task UpdateUserAsync(UserDTO userDto)
+        public async Task<UserDTO> UpdateUserAsync(UserDTO userDto)
         {
             var user = _mapper.Map<User>(userDto);
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();
+            var updatedUser = _mapper.Map<UserDTO>(user);
+            return updatedUser;
         }
     }
 }

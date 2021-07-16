@@ -1,5 +1,5 @@
-﻿using Mentoring_project.Domain.Core.Entities;
-using Mentoring_project.Infrastructure.Data.Data;
+﻿using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Infrastructure.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -32,12 +32,22 @@ namespace MentoringProject.Tests
         {
             var users = new List<User>
             {
-                new User { UserId=1, FirstName="Tom",LastName="Walker"},
-                new User { UserId=2, FirstName="Alice", LastName="Walker"},
-                new User { UserId=3, FirstName="Sam",LastName="Walker"}
+                new User
+                {
+                    FirstName="Tom",
+                    LastName="Walker"
+                },
+                new User {
+                    FirstName="Alice",
+                    LastName="Walker"
+                },
+                new User
+                {
+                    FirstName="Sam",
+                    LastName="Walker"
+                }
             };
             return users;
         }
-
     }
 }

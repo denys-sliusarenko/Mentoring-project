@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MentoringProject.Application": {
+      "commandName": "Executable"
+    }
+  }
+}

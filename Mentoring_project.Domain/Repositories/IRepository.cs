@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Domain.Interfaces.Repositories
+namespace MentoringProject.Domain.Core.Repositories
 {
     public interface IRepository<T> where T : class
     {

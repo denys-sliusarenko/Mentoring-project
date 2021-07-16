@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Mentoring_project.Business.DTO;
-using Mentoring_project.Domain.Core.Entities;
-using Mentoring_project.ViewModels;
+using MentoringProject.Application.DTO;
+using MentoringProject.Domain.Core.Entities;
+using MentoringProject.ViewModels;
 
-namespace Mentoring_project.Mapper
+namespace MentoringProject.Mapper
 {
     public class MappingProfile : Profile
     {

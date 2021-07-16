@@ -1,4 +1,4 @@
-﻿namespace Mentoring_project.Domain.Core.Entities
+﻿namespace MentoringProject.Domain.Core.Entities
 {
     public class User
     {

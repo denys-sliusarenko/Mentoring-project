@@ -1,12 +1,11 @@
 using AutoMapper;
-using Mentoring_project.Business.DTO;
-using Mentoring_project.Business.Services;
-using Mentoring_project.Domain.Core.Entities;
-using Mentoring_project.Infrastructure.Data.Data;
-using Mentoring_project.Mapper;
+using FluentAssertions;
+using MentoringProject.Application.DTO;
+using MentoringProject.Application.Services;
+using MentoringProject.Infrastructure.Data.Data;
+using MentoringProject.Mapper;
 using MentoringProject.Tests;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,12 +17,12 @@ namespace Mentoring_project.Test
 {
     public class UserServiceTest : IClassFixture<DbFixture>
     {
-        private DbFixture _fixture;
+        private DbFixture _dbFixture;
         private readonly IMapper _mapper;
 
-        public UserServiceTest(DbFixture fixture)
+        public UserServiceTest(DbFixture dbFixture)
         {
-            _fixture = fixture;
+            _dbFixture = dbFixture;
             if (_mapper == null)
             {
                 var mappingConfig = new MapperConfiguration(mc =>
@@ -38,7 +37,7 @@ namespace Mentoring_project.Test
         [Fact]
         public void GetUserByIdTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -47,18 +46,16 @@ namespace Mentoring_project.Test
 
                 // Act
                 var result = userService.GetUserById(expectedUser.UserId);
-                var obj1 = JsonConvert.SerializeObject(result);
-                var obj2 = JsonConvert.SerializeObject(expectedUser);
 
                 //Assert
-                Assert.Equal(obj1, obj2);
+                result.Should().BeEquivalentTo(expectedUser);
             }
         }
 
         [Fact]
         public void GetNotExistUserByIdTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -76,7 +73,7 @@ namespace Mentoring_project.Test
         [Fact]
         public void GetAllUserTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -94,7 +91,7 @@ namespace Mentoring_project.Test
         [Fact]
         public async Task CreateUserTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -122,7 +119,7 @@ namespace Mentoring_project.Test
         [Fact]
         public async Task DeleteUserTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -142,7 +139,7 @@ namespace Mentoring_project.Test
         [Fact]
         public async Task DeleteNotExistUserTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -162,7 +159,7 @@ namespace Mentoring_project.Test
         [Fact]
         public async Task CreateExistUserExceptionTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);
@@ -180,7 +177,7 @@ namespace Mentoring_project.Test
         [Fact]
         public async Task UpdateUserTest()
         {
-            using (var context = new DbProjectContext(_fixture.GetDbOptions()))
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
                 //Arrange
                 var uow = new UnitOfWork(context);

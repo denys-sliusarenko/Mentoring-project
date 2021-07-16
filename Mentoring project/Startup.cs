@@ -1,7 +1,7 @@
 using AutoMapper;
-using Mentoring_project.Infrastructure.Data.Data;
-using Mentoring_project.Mapper;
+using MentoringProject.Infrastructure.Data.Data;
 using MentoringProject.Infrastructure.IoC;
+using MentoringProject.Mapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace Mentoring_project
+namespace MentoringProject
 {
     public class Startup
     {

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Mentoring_project.Business.DTO;
-using Mentoring_project.Business.Interfaces;
-using Mentoring_project.ViewModels;
+using MentoringProject.Application.DTO;
+using MentoringProject.Application.Interfaces;
+using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.Controllers
+namespace MentoringProject.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -46,9 +46,9 @@ namespace Mentoring_project.Controllers
             try
             {
                 var newUserDto = _mapper.Map<UserDTO>(user);
-                await _userService.CreateUserAsync(newUserDto);
+                var createdUser = await _userService.CreateUserAsync(newUserDto);
 
-                return Created($"{Request.Path.Value}/{newUserDto.UserId}", newUserDto);
+                return Created($"{Request.Path.Value}/{createdUser.UserId}", createdUser);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,11 @@ namespace Mentoring_project.Controllers
         {
             try
             {
-                await _userService.DeleteUserAsync(id);
+                var user = _userService.GetUserById(id);
+                if (user != null)
+                {
+                    await _userService.DeleteUserAsync(id);
+                }
                 return NoContent();
             }
             catch (Exception ex)
@@ -77,8 +81,8 @@ namespace Mentoring_project.Controllers
             try
             {
                 var newUserDto = _mapper.Map<UserDTO>(user);
-                await _userService.UpdateUserAsync(newUserDto);
-                return Ok();
+                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+                return Ok(updatedUser);
             }
             catch (Exception ex)
             {
