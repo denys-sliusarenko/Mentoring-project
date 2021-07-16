@@ -78,13 +78,13 @@ namespace Mentoring_project.Test
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
-                int expectedCount = context.Users.Count();
+                var allUsers = context.Users;
 
                 // Act
                 var result = userService.GetAll();
 
                 //Assert
-                Assert.Equal(expectedCount, result.Count());
+                result.Should().BeEquivalentTo(allUsers);
             }
         }
 
@@ -96,23 +96,19 @@ namespace Mentoring_project.Test
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
-                int expectedCount = context.Users.Count() + 1;
 
                 // Act
                 var newUser = new UserDTO()
                 {
-                    UserId = 0,
-                    FirstName = "Homer",
-                    LastName = "Simpson"
+                    FirstName = Guid.NewGuid().ToString(),
+                    LastName = Guid.NewGuid().ToString()
                 };
 
-                await userService.CreateUserAsync(newUser);
+                var createdUser = await userService.CreateUserAsync(newUser);
                 var allUsers = _mapper.Map<IEnumerable<UserDTO>>(context.Users);
 
                 //Assert
-                Assert.Equal(expectedCount, allUsers.Count());
-
-                Assert.Contains(allUsers, p => p.FirstName == newUser.FirstName && p.LastName == newUser.LastName);
+                allUsers.Should().ContainEquivalentOf(createdUser);
             }
         }
 
@@ -124,18 +120,17 @@ namespace Mentoring_project.Test
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
-                int idDeleteUser = context.Users.First().UserId;
-                int expectedCount = context.Users.Count() - 1;
+                int idUser = context.Users.First().UserId;
 
                 // Act
-                await userService.DeleteUserAsync(idDeleteUser);
-                var allUsers = context.Users;
+                await userService.DeleteUserAsync(idUser);
+                var isDeleted = context.Users.Find(idUser);
 
                 //Assert
-                Assert.Equal(expectedCount, allUsers.Count());
-                Assert.DoesNotContain(allUsers, u => u.UserId == idDeleteUser);
+                Assert.Null(isDeleted);
             }
         }
+
         [Fact]
         public async Task DeleteNotExistUserTest()
         {
@@ -184,19 +179,16 @@ namespace Mentoring_project.Test
                 var userService = new UserService(uow, _mapper);
 
                 // Act
-                var updateUser = _mapper.Map<UserDTO>(context.Users.AsNoTracking().First());
+                var user = _mapper.Map<UserDTO>(context.Users.AsNoTracking().First());
 
-                updateUser.FirstName = Guid.NewGuid().ToString();
-                updateUser.LastName = Guid.NewGuid().ToString();
+                user.FirstName = Guid.NewGuid().ToString();
+                user.LastName = Guid.NewGuid().ToString();
 
-                await userService.UpdateUserAsync(updateUser);
-                var savedUser = _mapper.Map<UserDTO>(await context.Users.FindAsync(updateUser.UserId));
+                var updatedUser = await userService.UpdateUserAsync(user);
+                var savedUser = _mapper.Map<UserDTO>(await context.Users.FindAsync(updatedUser.UserId));
 
                 //Assert
-                var obj1 = JsonConvert.SerializeObject(updateUser);
-                var obj2 = JsonConvert.SerializeObject(savedUser);
-
-                Assert.Equal(obj1, obj2);
+                updatedUser.Should().BeEquivalentTo(savedUser);
             }
         }
     }
