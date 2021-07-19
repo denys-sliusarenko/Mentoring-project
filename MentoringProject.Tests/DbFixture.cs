@@ -11,7 +11,7 @@ namespace MentoringProject.Tests
     {
         public DbContextOptions<DbProjectContext> GetDbOptions()
         {
-            string dbName = Guid.NewGuid().ToString();
+            string dbName = "DbMentoringProject";
 
             var serviceProvider = new ServiceCollection()
                 .AddEntityFrameworkInMemoryDatabase()
@@ -37,7 +37,8 @@ namespace MentoringProject.Tests
                     FirstName="Tom",
                     LastName="Walker"
                 },
-                new User {
+                new User
+                {
                     FirstName="Alice",
                     LastName="Walker"
                 },

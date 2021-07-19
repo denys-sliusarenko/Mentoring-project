@@ -2,11 +2,11 @@ using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Services;
+using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Infrastructure.Data.Data;
 using MentoringProject.Mapper;
 using MentoringProject.Tests;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void GetUserByIdTest()
+        public void GetUserById_WhenExists_ReturnCorrectUser()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -53,7 +53,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void GetNotExistUserByIdTest()
+        public void GetUserById_WhenNotExists_ReturnNull()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -71,7 +71,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public void GetAllUserTest()
+        public void GetAll_WhenGetAllUserFromDatabase_ReturnAllUsers()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -89,7 +89,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public async Task CreateUserTest()
+        public async Task CreateUserAsync_CreateCorrectUser_ReturnCreatedUser()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -97,7 +97,7 @@ namespace Mentoring_project.Test
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
 
-                // Act
+                //Act
                 var newUser = new UserDTO()
                 {
                     FirstName = Guid.NewGuid().ToString(),
@@ -113,7 +113,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public async Task DeleteUserTest()
+        public async Task DeleteUserAsync_WhenExistUser_RemovedUser()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -122,17 +122,17 @@ namespace Mentoring_project.Test
                 var userService = new UserService(uow, _mapper);
                 int idUser = context.Users.First().UserId;
 
-                // Act
+                //Act
                 await userService.DeleteUserAsync(idUser);
-                var isDeleted = context.Users.Find(idUser);
+                var deletedUser = context.Users.Find(idUser);
 
                 //Assert
-                Assert.Null(isDeleted);
+                Assert.Null(deletedUser);
             }
         }
 
         [Fact]
-        public async Task DeleteNotExistUserTest()
+        public async Task DeleteUserAsyn_WhenNotExistUser_NothingRemoved()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -152,25 +152,7 @@ namespace Mentoring_project.Test
         }
 
         [Fact]
-        public async Task CreateExistUserExceptionTest()
-        {
-            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
-            {
-                //Arrange
-                var uow = new UnitOfWork(context);
-
-                var userService = new UserService(uow, _mapper);
-
-                // Act
-                var existUser = _mapper.Map<UserDTO>(context.Users.First());
-
-                //Assert
-                await Assert.ThrowsAsync<InvalidOperationException>(async () => await userService.CreateUserAsync(existUser));
-            }
-        }
-
-        [Fact]
-        public async Task UpdateUserTest()
+        public async Task UpdateUserAsync_WhenUserExist_ReturnUpdatedUser()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -189,6 +171,29 @@ namespace Mentoring_project.Test
 
                 //Assert
                 updatedUser.Should().BeEquivalentTo(savedUser);
+            }
+        }
+
+        [Fact]
+        public async Task UpdateUserAsync_WhenUserNotExist_ThrowsDbUpdateConcurrencyException()
+        {
+            using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
+            {
+                //Arrange
+                var uow = new UnitOfWork(context);
+                var userService = new UserService(uow, _mapper);
+
+                // Act
+                var user = new UserDTO()
+                {
+                    UserId = int.MinValue,
+                    FirstName = Guid.NewGuid().ToString(),
+                    LastName = Guid.NewGuid().ToString()
+                };
+
+                //Assert
+                await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await userService.UpdateUserAsync(user));
+
             }
         }
     }
