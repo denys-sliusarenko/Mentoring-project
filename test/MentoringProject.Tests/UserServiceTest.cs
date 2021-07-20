@@ -2,7 +2,6 @@ using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Services;
-using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Infrastructure.Data.Data;
 using MentoringProject.Mapper;
 using MentoringProject.Tests;

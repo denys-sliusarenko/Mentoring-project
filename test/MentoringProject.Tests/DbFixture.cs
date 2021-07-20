@@ -2,7 +2,6 @@
 using MentoringProject.Infrastructure.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 
 namespace MentoringProject.Tests

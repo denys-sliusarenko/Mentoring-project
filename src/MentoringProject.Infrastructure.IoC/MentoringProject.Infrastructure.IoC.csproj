@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mentoring_project.Business\MentoringProject.Application.csproj" />
-    <ProjectReference Include="..\Mentoring_project.Infrastructure.Data\MentoringProject.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\MentoringProject.Application\MentoringProject.Application.csproj" />
+    <ProjectReference Include="..\MentoringProject.Infrastructure.Data\MentoringProject.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>
