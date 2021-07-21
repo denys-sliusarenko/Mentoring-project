@@ -43,51 +43,31 @@ namespace MentoringProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
         {
-            try
-            {
-                var newUserDto = _mapper.Map<UserDTO>(user);
-                var createdUser = await _userService.CreateUserAsync(newUserDto);
+            var newUserDto = _mapper.Map<UserDTO>(user);
+            var createdUser = await _userService.CreateUserAsync(newUserDto);
 
-                return Created($"{Request.Path.Value}/{createdUser.UserId}", createdUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return Created($"{Request.Path.Value}/{createdUser.UserId}", createdUser);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            try
+            var user = _userService.GetUserById(id);
+            if (user != null)
             {
-                var user = _userService.GetUserById(id);
-                if (user != null)
-                {
-                    await _userService.DeleteUserAsync(id);
-                }
+                await _userService.DeleteUserAsync(id);
                 return NoContent();
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return NotFound();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserViewModel user)
         {
-            try
-            {
-                var newUserDto = _mapper.Map<UserDTO>(user);
-                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-                return Ok(updatedUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var newUserDto = _mapper.Map<UserDTO>(user);
+            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+            return Ok(updatedUser);
         }
     }
 }
