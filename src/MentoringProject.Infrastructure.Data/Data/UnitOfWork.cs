@@ -1,23 +1,20 @@
-﻿using Mentoring_project.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Core.Repositories;
 using System.Threading.Tasks;
 
-namespace Mentoring_project.Repositories
+namespace MentoringProject.Infrastructure.Data.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbProjectContext _db;
-        private UserRepository userRepository;
+        private IRepository<User> userRepository;
 
         public UnitOfWork(DbProjectContext db)
         {
             _db = db;
         }
 
-        public UserRepository UserRepository
+        public IRepository<User> UserRepository
         {
             get
             {
@@ -37,4 +34,5 @@ namespace Mentoring_project.Repositories
             await _db.SaveChangesAsync();
         }
     }
+
 }

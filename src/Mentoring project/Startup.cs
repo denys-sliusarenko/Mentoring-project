@@ -1,23 +1,19 @@
-using Mentoring_project.Interfaces;
-using Mentoring_project.Repositories;
-using Mentoring_project.Services;
+using AutoMapper;
+using MentoringProject.Infrastructure.Data.Data;
+using MentoringProject.Infrastructure.IoC;
+using MentoringProject.Mapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Mentoring_project
+namespace MentoringProject
 {
     public class Startup
     {
@@ -37,12 +33,24 @@ namespace Mentoring_project
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring_project", Version = "v1" });
             });
+           
+            services.AddDbContext<DbProjectContext>(options =>
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DbMentoringProjectConnection"));
+            });
 
-            services.AddDbContext<DbProjectContext>(options => options.UseInMemoryDatabase(databaseName: "MentoringProjectDb"));
-            
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserService, UserService>();
-            
+            DependencyContainer.RegisterServices(services);
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+
             services.AddControllers(opt =>
             {
                 // remove formatter that turns nulls into 204 - No Content responses
@@ -60,6 +68,15 @@ namespace Mentoring_project
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mentoring_project v1"));
             }
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                    .Get<IExceptionHandlerPathFeature>()
+                    .Error;
+                var response = new { error = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseHttpsRedirection();
 

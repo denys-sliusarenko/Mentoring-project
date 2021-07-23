@@ -1,11 +1,9 @@
-﻿using Mentoring_project.Entities;
+﻿using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Mentoring_project.Repositories
+namespace MentoringProject.Infrastructure.Data.Data
 {
     public class UserRepository : IRepository<User>
     {
