@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
+using MentoringProject.Application.Exceptions;
 using MentoringProject.Application.Interfaces;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +33,15 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public IActionResult GetUserById(int id)
         {
-            var user = _userService.GetUserById(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = _userService.GetUserById(id);
+                return Ok(user);
             }
-            return Ok(user);
+            catch (UserException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]
@@ -45,29 +49,38 @@ namespace MentoringProject.Controllers
         {
             var newUserDto = _mapper.Map<UserDTO>(user);
             var createdUser = await _userService.CreateUserAsync(newUserDto);
-
-            return Created($"{Request.Path.Value}/{createdUser.UserId}", createdUser);
+            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.UserId }, createdUser);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUserAsync(int id)
         {
-            var user = _userService.GetUserById(id);
-            if (user != null)
+            try
             {
                 await _userService.DeleteUserAsync(id);
                 return NoContent();
             }
-            return NotFound();
+            catch (UserException ex)
+            {
+                return NotFound(ex);
+            }
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
-            var newUserDto = _mapper.Map<UserDTO>(user);
-            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-            return Ok(updatedUser);
+          //  try
+         //   {
+                var newUserDto = _mapper.Map<UserDTO>(user);
+                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+                return Ok(updatedUser);
+           // }
+          /*  catch (UserException ex)
+            {
+                return BadRequest(ex);
+            }*/
+
         }
     }
 }

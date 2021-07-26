@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
+using MentoringProject.Application.Exceptions;
 using MentoringProject.Application.Services;
 using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
@@ -44,7 +45,7 @@ namespace MentoringProject.Web.Tests
         }
 
         [Fact]
-        public void GetUserById_WhenNotExists_ReturnNull()
+        public void GetUserById_WhenNotExists_ThrowUserException()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -53,11 +54,14 @@ namespace MentoringProject.Web.Tests
                 var userService = new UserService(uow, _mapper);
                 int IdUser = int.MinValue;
 
-                // Act
-                var result = userService.GetUserById(IdUser);
+                //Act
+                Action act = () => userService.GetUserById(IdUser);
 
                 //Assert
-                Assert.Null(result);
+
+                var exception = Assert.Throws<UserException>(act);
+
+                Assert.Equal($"User with {IdUser} not found", exception.Message);
             }
         }
 
@@ -87,14 +91,13 @@ namespace MentoringProject.Web.Tests
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
-
-                //Act
                 var newUser = new UserDTO()
                 {
                     FirstName = Guid.NewGuid().ToString(),
                     LastName = Guid.NewGuid().ToString()
                 };
 
+                //Act
                 var createdUser = await userService.CreateUserAsync(newUser);
                 var allUsers = _mapper.Map<IEnumerable<UserDTO>>(context.Users);
 
@@ -123,7 +126,7 @@ namespace MentoringProject.Web.Tests
         }
 
         [Fact]
-        public async Task DeleteUserAsyn_WhenNotExistUser_NothingRemoved()
+        public async Task DeleteUserAsyn_WhenNotExistUser_ThrowsUserException()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -132,13 +135,15 @@ namespace MentoringProject.Web.Tests
                 var userService = new UserService(uow, _mapper);
                 int idDeleteUser = int.MinValue;
                 int expectedCount = context.Users.Count();
-
-                // Act
-                await userService.DeleteUserAsync(idDeleteUser);
                 var allUsers = context.Users;
 
+                // Act
+                Func<Task> act = () => userService.DeleteUserAsync(idDeleteUser);
+
                 //Assert
-                Assert.Equal(expectedCount, allUsers.Count());
+
+                var exception = await Assert.ThrowsAsync<UserException>(act);
+                Assert.Equal($"User with {idDeleteUser} not found", exception.Message);
             }
         }
 
@@ -173,8 +178,6 @@ namespace MentoringProject.Web.Tests
                 //Arrange
                 var uow = new UnitOfWork(context);
                 var userService = new UserService(uow, _mapper);
-
-                // Act
                 var user = new UserDTO()
                 {
                     UserId = int.MinValue,
@@ -182,9 +185,11 @@ namespace MentoringProject.Web.Tests
                     LastName = Guid.NewGuid().ToString()
                 };
 
-                //Assert
-                await Assert.ThrowsAsync<DbUpdateConcurrencyException>(async () => await userService.UpdateUserAsync(user));
+                // Act
+                Func<Task> act = () => userService.UpdateUserAsync(user);
 
+                //Assert
+                await Assert.ThrowsAsync<DbUpdateConcurrencyException>(act);
             }
         }
     }

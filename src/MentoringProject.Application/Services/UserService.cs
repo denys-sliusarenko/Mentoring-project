@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
+using MentoringProject.Application.Exceptions;
 using MentoringProject.Application.Interfaces;
 using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Domain.Core.Repositories;
@@ -30,6 +31,11 @@ namespace MentoringProject.Application.Services
 
         public async Task DeleteUserAsync(int id)
         {
+            var user = _unitOfWork.UserRepository.Get(id);
+            if (user == null)
+            {
+                throw new UserException($"User with {id} not found");
+            }
             _unitOfWork.UserRepository.Delete(id);
             await _unitOfWork.SaveAsync();
         }
@@ -44,6 +50,10 @@ namespace MentoringProject.Application.Services
         public UserDTO GetUserById(int id)
         {
             var user = _unitOfWork.UserRepository.Get(id);
+            if (user == null)
+            {
+                throw new UserException($"User with {id} not found");
+            }
             var userDto = _mapper.Map<UserDTO>(user);
 
             return userDto;
