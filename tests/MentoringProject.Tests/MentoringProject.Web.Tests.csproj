@@ -20,7 +20,6 @@
     <ProjectReference Include="..\..\src\Mentoring project\MentoringProject.Web.csproj" />
     <ProjectReference Include="..\..\src\MentoringProject.Application\MentoringProject.Application.csproj" />
     <ProjectReference Include="..\..\src\MentoringProject.Domain\MentoringProject.Domain.csproj" />
-    <ProjectReference Include="..\..\src\MentoringProject.Infrastructure.Data\MentoringProject.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

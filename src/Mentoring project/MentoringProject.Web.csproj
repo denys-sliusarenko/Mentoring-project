@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MentoringProject.Application\MentoringProject.Application.csproj" />
-    <ProjectReference Include="..\MentoringProject.Infrastructure.Data\MentoringProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\MentoringProject.Infrastructure\MentoringProject.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
