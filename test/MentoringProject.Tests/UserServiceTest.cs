@@ -2,9 +2,8 @@ using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Services;
-using MentoringProject.Infrastructure.Data.Data;
+using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
-using MentoringProject.Tests;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Mentoring_project.Test
+namespace MentoringProject.Web.Tests
 {
     public class UserServiceTest : IClassFixture<DbFixture>
     {

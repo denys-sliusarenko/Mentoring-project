@@ -41,7 +41,7 @@ namespace MentoringProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserViewModel user)
         {
             var newUserDto = _mapper.Map<UserDTO>(user);
             var createdUser = await _userService.CreateUserAsync(newUserDto);
@@ -51,7 +51,7 @@ namespace MentoringProject.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUserAsync(int id)
         {
             var user = _userService.GetUserById(id);
             if (user != null)
@@ -63,7 +63,7 @@ namespace MentoringProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserViewModel user)
+        public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
             var newUserDto = _mapper.Map<UserDTO>(user);
             var updatedUser = await _userService.UpdateUserAsync(newUserDto);

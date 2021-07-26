@@ -3,7 +3,7 @@ using MentoringProject.Domain.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace MentoringProject.Infrastructure.Data.Data
+namespace MentoringProject.Infrastructure.Data
 {
     public class UserRepository : IRepository<User>
     {

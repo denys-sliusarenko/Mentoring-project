@@ -2,7 +2,7 @@
 using MentoringProject.Domain.Core.Repositories;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Infrastructure.Data.Data
+namespace MentoringProject.Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -1,10 +1,10 @@
 ﻿using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Infrastructure.Data.Data;
+using MentoringProject.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
-namespace MentoringProject.Tests
+namespace MentoringProject.Web.Tests
 {
     public class DbFixture
     {
