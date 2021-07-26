@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
-namespace MentoringProject.Web.Tests
+namespace MentoringProject.TestDataConfiguration
 {
     public class DbFixture
     {

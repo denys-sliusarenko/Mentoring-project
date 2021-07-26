@@ -4,6 +4,7 @@ using MentoringProject.Application.DTO;
 using MentoringProject.Application.Services;
 using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
+using MentoringProject.TestDataConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,15 +22,7 @@ namespace MentoringProject.Web.Tests
         public UserServiceTest(DbFixture dbFixture)
         {
             _dbFixture = dbFixture;
-            if (_mapper == null)
-            {
-                var mappingConfig = new MapperConfiguration(mc =>
-                {
-                    mc.AddProfile(new MappingProfile());
-                });
-                IMapper mapper = mappingConfig.CreateMapper();
-                _mapper = mapper;
-            }
+            _mapper = MapperConfig.GetMapper();
         }
 
         [Fact]
