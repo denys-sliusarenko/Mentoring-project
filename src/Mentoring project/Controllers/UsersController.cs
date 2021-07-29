@@ -70,17 +70,9 @@ namespace MentoringProject.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
-          //  try
-         //   {
-                var newUserDto = _mapper.Map<UserDTO>(user);
-                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-                return Ok(updatedUser);
-           // }
-          /*  catch (UserException ex)
-            {
-                return BadRequest(ex);
-            }*/
-
+            var newUserDto = _mapper.Map<UserDTO>(user);
+            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+            return Ok(updatedUser);
         }
     }
 }

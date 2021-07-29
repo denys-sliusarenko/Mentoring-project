@@ -1,22 +1,18 @@
 ﻿using AutoMapper;
-using MentoringProject.Infrastructure.Data;
-using MentoringProject.Mapper;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using MentoringProject.TestDataConfiguration;
-using MentoringProject.Controllers;
-using MentoringProject.Application.Services;
-using Microsoft.AspNetCore.Mvc;
 using MentoringProject.Application.DTO;
+using MentoringProject.Application.Services;
+using MentoringProject.Controllers;
+using MentoringProject.Infrastructure.Data;
+using MentoringProject.TestDataConfiguration;
+using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MentoringProject.ViewModels;
-using FluentAssertions.Equivalency;
-using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace MentoringProject.Web.Tests
 {
