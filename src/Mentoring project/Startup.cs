@@ -1,6 +1,5 @@
 using AutoMapper;
-using MentoringProject.Infrastructure.Data.Data;
-using MentoringProject.Infrastructure.IoC;
+using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -33,14 +32,14 @@ namespace MentoringProject
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring_project", Version = "v1" });
             });
-           
+
             services.AddDbContext<DbProjectContext>(options =>
             {
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DbMentoringProjectConnection"));
             });
 
-            DependencyContainer.RegisterServices(services);
+            Infrastructure.Configuration.RegisterServices(services);
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -71,11 +70,18 @@ namespace MentoringProject
 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
-                var exception = context.Features
-                    .Get<IExceptionHandlerPathFeature>()
-                    .Error;
-                var response = new { error = exception.Message };
-                await context.Response.WriteAsJsonAsync(response);
+                if (env.IsDevelopment())
+                {
+                    var exception = context.Features
+                        .Get<IExceptionHandlerPathFeature>()
+                        .Error;
+                    var response = new { error = exception.Message };
+                    await context.Response.WriteAsJsonAsync(response);
+                }
+                else
+                {
+                    await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
+                }
             }));
 
             app.UseHttpsRedirection();

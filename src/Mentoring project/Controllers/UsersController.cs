@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
+using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
@@ -32,42 +32,53 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public IActionResult GetUserById(int id)
         {
-            var user = _userService.GetUserById(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = _userService.GetUserById(id);
+                return Ok(user);
             }
-            return Ok(user);
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserViewModel user)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserViewModel user)
         {
             var newUserDto = _mapper.Map<UserDTO>(user);
             var createdUser = await _userService.CreateUserAsync(newUserDto);
-
-            return Created($"{Request.Path.Value}/{createdUser.UserId}", createdUser);
+            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.UserId }, createdUser);
         }
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUserAsync(int id)
         {
-            var user = _userService.GetUserById(id);
-            if (user != null)
+            try
             {
                 await _userService.DeleteUserAsync(id);
                 return NoContent();
             }
-            return NotFound();
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex);
+            }
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserViewModel user)
+        public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
-            var newUserDto = _mapper.Map<UserDTO>(user);
-            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-            return Ok(updatedUser);
+            try
+            {
+                var newUserDto = _mapper.Map<UserDTO>(user);
+                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+                return Ok(updatedUser);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex);
+            }
         }
     }
 }

@@ -2,7 +2,8 @@
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
 using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Domain.Core.Repositories;
+using MentoringProject.Domain.Core.Exceptions;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,6 +31,11 @@ namespace MentoringProject.Application.Services
 
         public async Task DeleteUserAsync(int id)
         {
+            var user = _unitOfWork.UserRepository.Get(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"User with {id} not found");
+            }
             _unitOfWork.UserRepository.Delete(id);
             await _unitOfWork.SaveAsync();
         }
@@ -44,6 +50,10 @@ namespace MentoringProject.Application.Services
         public UserDTO GetUserById(int id)
         {
             var user = _unitOfWork.UserRepository.Get(id);
+            if (user == null)
+            {
+                throw new NotFoundException($"User with {id} not found");
+            }
             var userDto = _mapper.Map<UserDTO>(user);
 
             return userDto;
@@ -51,6 +61,10 @@ namespace MentoringProject.Application.Services
 
         public async Task<UserDTO> UpdateUserAsync(UserDTO userDto)
         {
+            if (!await _unitOfWork.UserRepository.Exist(userDto.UserId))
+            {
+                throw new NotFoundException();
+            }
             var user = _mapper.Map<User>(userDto);
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();

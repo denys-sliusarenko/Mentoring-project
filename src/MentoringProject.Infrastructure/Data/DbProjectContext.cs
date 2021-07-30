@@ -1,7 +1,7 @@
 ﻿using MentoringProject.Domain.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MentoringProject.Infrastructure.Data.Data
+namespace MentoringProject.Infrastructure.Data
 {
     public class DbProjectContext : DbContext
     {

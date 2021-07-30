@@ -1,12 +1,12 @@
 ﻿using MentoringProject.Application.Interfaces;
 using MentoringProject.Application.Services;
-using MentoringProject.Domain.Core.Repositories;
-using MentoringProject.Infrastructure.Data.Data;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
+using MentoringProject.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MentoringProject.Infrastructure.IoC
+namespace MentoringProject.Infrastructure
 {
-    public class DependencyContainer
+    public class Configuration
     {
         public static void RegisterServices(IServiceCollection services)
         {

@@ -1,9 +1,10 @@
 ﻿using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Domain.Core.Repositories;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace MentoringProject.Infrastructure.Data.Data
+namespace MentoringProject.Infrastructure.Data
 {
     public class UserRepository : IRepository<User>
     {
@@ -23,6 +24,11 @@ namespace MentoringProject.Infrastructure.Data.Data
             User user = db.Users.Find(id);
             if (user != null)
                 db.Users.Remove(user);
+        }
+
+        public async Task<bool> Exist(int id)
+        {
+           return await db.Users.AnyAsync(d => d.UserId == id);
         }
 
         public User Get(int id)
