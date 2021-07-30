@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Domain.Core.Repositories
+namespace MentoringProject.Domain.Core.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {
@@ -13,5 +13,6 @@ namespace MentoringProject.Domain.Core.Repositories
         void Create(T item);
         void Update(T item);
         void Delete(int id);
+        Task<bool> Exist(int id);
     }
 }

@@ -1,10 +1,9 @@
 using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
-using MentoringProject.Application.Exceptions;
 using MentoringProject.Application.Services;
+using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.Infrastructure.Data;
-using MentoringProject.Mapper;
 using MentoringProject.TestDataConfiguration;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -58,10 +57,7 @@ namespace MentoringProject.Web.Tests
                 Action act = () => userService.GetUserById(IdUser);
 
                 //Assert
-
-                var exception = Assert.Throws<UserException>(act);
-
-                Assert.Equal($"User with {IdUser} not found", exception.Message);
+                Assert.Throws<NotFoundException>(act);
             }
         }
 
@@ -141,9 +137,7 @@ namespace MentoringProject.Web.Tests
                 Func<Task> act = () => userService.DeleteUserAsync(idDeleteUser);
 
                 //Assert
-
-                var exception = await Assert.ThrowsAsync<UserException>(act);
-                Assert.Equal($"User with {idDeleteUser} not found", exception.Message);
+                await Assert.ThrowsAsync<NotFoundException>(act);
             }
         }
 
@@ -171,7 +165,7 @@ namespace MentoringProject.Web.Tests
         }
 
         [Fact]
-        public async Task UpdateUserAsync_WhenUserNotExist_ThrowsDbUpdateConcurrencyException()
+        public async Task UpdateUserAsync_WhenUserNotExist_ThrowsNotFoundException()
         {
             using (var context = new DbProjectContext(_dbFixture.GetDbOptions()))
             {
@@ -189,7 +183,7 @@ namespace MentoringProject.Web.Tests
                 Func<Task> act = () => userService.UpdateUserAsync(user);
 
                 //Assert
-                await Assert.ThrowsAsync<DbUpdateConcurrencyException>(act);
+                await Assert.ThrowsAsync<NotFoundException>(act);
             }
         }
     }

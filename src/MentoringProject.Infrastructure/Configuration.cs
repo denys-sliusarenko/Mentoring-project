@@ -1,6 +1,6 @@
 ﻿using MentoringProject.Application.Interfaces;
 using MentoringProject.Application.Services;
-using MentoringProject.Domain.Core.Repositories;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
 

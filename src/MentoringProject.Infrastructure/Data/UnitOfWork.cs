@@ -1,5 +1,5 @@
 ﻿using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Domain.Core.Repositories;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using System.Threading.Tasks;
 
 namespace MentoringProject.Infrastructure.Data

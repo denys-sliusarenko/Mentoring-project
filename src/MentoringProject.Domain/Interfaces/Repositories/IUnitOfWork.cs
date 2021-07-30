@@ -1,7 +1,7 @@
 ﻿using MentoringProject.Domain.Core.Entities;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Domain.Core.Repositories
+namespace MentoringProject.Domain.Core.Interfaces.Repositories
 {
     public interface IUnitOfWork
     {

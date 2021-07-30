@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
-using MentoringProject.Application.Exceptions;
 using MentoringProject.Application.Interfaces;
+using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
@@ -38,7 +37,7 @@ namespace MentoringProject.Controllers
                 var user = _userService.GetUserById(id);
                 return Ok(user);
             }
-            catch (UserException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -61,7 +60,7 @@ namespace MentoringProject.Controllers
                 await _userService.DeleteUserAsync(id);
                 return NoContent();
             }
-            catch (UserException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -70,9 +69,16 @@ namespace MentoringProject.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
-            var newUserDto = _mapper.Map<UserDTO>(user);
-            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-            return Ok(updatedUser);
+            try
+            {
+                var newUserDto = _mapper.Map<UserDTO>(user);
+                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+                return Ok(updatedUser);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex);
+            }
         }
     }
 }
