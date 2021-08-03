@@ -9,8 +9,8 @@ namespace MentoringProject.Infrastructure.Data
         public DbProjectContext(DbContextOptions<DbProjectContext> options)
             : base(options)
         {
-           // Database.EnsureDeleted();
-           // Database.EnsureCreated();
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
