@@ -7,16 +7,13 @@ networks:
 services:
   sqldata:
     image: "mcr.microsoft.com/mssql/server:2017-latest"
-    #hostname: "localhost"
     networks:
       - projectnet
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=12541254d!
     ports:  
-     - '1433:1433' 
-    #expose:  
-    #  - 1433 
+     - '1433:1433'
   mentoringproject.web:
     image: ${DOCKER_REGISTRY-}mentoringprojectweb
     networks:
