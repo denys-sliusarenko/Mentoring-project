@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D0FB0C6E-D501-4BA7-B205-C365853408ED}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2C22BEAA-96CD-486C-AAD1-F3DA8ED5FE79}"
 EndProject
@@ -11,15 +14,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Domain", "src\MentoringProject.Domain\MentoringProject.Domain.csproj", "{E7FC6A68-86D7-46F2-857D-67EEA5E5037A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Web", "src\Mentoring project\MentoringProject.Web.csproj", "{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Infrastructure", "src\MentoringProject.Infrastructure\MentoringProject.Infrastructure.csproj", "{E55D7EC5-AA02-47EE-BD3E-FDCAEB8D581B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Application.Tests", "tests\MentoringProject.Tests\MentoringProject.Application.Tests.csproj", "{6087AE38-CB54-4A01-92D6-E1C86B04E87C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoringProject.Web.Tests", "tests\MentoringProject.Application.Tests\MentoringProject.Web.Tests.csproj", "{06957540-B93B-4BEE-A2E4-2DF9F46B74B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Web.Tests", "tests\MentoringProject.Application.Tests\MentoringProject.Web.Tests.csproj", "{06957540-B93B-4BEE-A2E4-2DF9F46B74B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentoringProject.TestDataConfiguration", "tests\MentoringProject.TestDataConfiguration\MentoringProject.TestDataConfiguration.csproj", "{6D761373-31C9-4308-8378-F439E0E7CF47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.TestDataConfiguration", "tests\MentoringProject.TestDataConfiguration\MentoringProject.TestDataConfiguration.csproj", "{6D761373-31C9-4308-8378-F439E0E7CF47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentoringProject.Web", "src\Mentoring project.Web\MentoringProject.Web.csproj", "{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BA760C01-338D-43E9-8784-A98D8F34EAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +40,6 @@ Global
 		{E7FC6A68-86D7-46F2-857D-67EEA5E5037A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7FC6A68-86D7-46F2-857D-67EEA5E5037A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7FC6A68-86D7-46F2-857D-67EEA5E5037A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E55D7EC5-AA02-47EE-BD3E-FDCAEB8D581B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E55D7EC5-AA02-47EE-BD3E-FDCAEB8D581B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E55D7EC5-AA02-47EE-BD3E-FDCAEB8D581B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +56,14 @@ Global
 		{6D761373-31C9-4308-8378-F439E0E7CF47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D761373-31C9-4308-8378-F439E0E7CF47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D761373-31C9-4308-8378-F439E0E7CF47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA760C01-338D-43E9-8784-A98D8F34EAED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA760C01-338D-43E9-8784-A98D8F34EAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA760C01-338D-43E9-8784-A98D8F34EAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA760C01-338D-43E9-8784-A98D8F34EAED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,11 +71,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{740CAA03-61C6-4D3D-B7D9-CD066575AEC9} = {D0FB0C6E-D501-4BA7-B205-C365853408ED}
 		{E7FC6A68-86D7-46F2-857D-67EEA5E5037A} = {D0FB0C6E-D501-4BA7-B205-C365853408ED}
-		{6B8EFDF6-BCCD-45AF-8CC4-D8C3EC1A5990} = {D0FB0C6E-D501-4BA7-B205-C365853408ED}
 		{E55D7EC5-AA02-47EE-BD3E-FDCAEB8D581B} = {D0FB0C6E-D501-4BA7-B205-C365853408ED}
 		{6087AE38-CB54-4A01-92D6-E1C86B04E87C} = {2C22BEAA-96CD-486C-AAD1-F3DA8ED5FE79}
 		{06957540-B93B-4BEE-A2E4-2DF9F46B74B9} = {2C22BEAA-96CD-486C-AAD1-F3DA8ED5FE79}
 		{6D761373-31C9-4308-8378-F439E0E7CF47} = {2C22BEAA-96CD-486C-AAD1-F3DA8ED5FE79}
+		{DD1BA132-0447-4914-B9AE-CD1BFCE0D56E} = {D0FB0C6E-D501-4BA7-B205-C365853408ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6EB46CA6-3F24-4D62-B0EE-A27100D17585}

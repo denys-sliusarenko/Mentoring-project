@@ -1,0 +1,27 @@
+version: '3.4'
+
+networks:
+  projectnet:
+    driver: bridge
+
+services:
+  sqldata:
+    image: "mcr.microsoft.com/mssql/server:2017-latest"
+    networks:
+      - projectnet
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=12541254d!
+    ports:  
+     - '1433:1433'
+  mentoringproject.web:
+    image: ${DOCKER_REGISTRY-}mentoringprojectweb
+    networks:
+         - projectnet
+    environment:
+         - ConnectionString=Server=sqldata;Database=MentoringProjectDb;User=sa;Password=12541254d!;MultipleActiveResultSets=true
+    build:
+      context: .
+      dockerfile: src/Mentoring project.Web/Dockerfile
+    depends_on:
+     - sqldata

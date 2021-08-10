@@ -32,11 +32,9 @@ namespace MentoringProject
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mentoring_project", Version = "v1" });
             });
-
             services.AddDbContext<DbProjectContext>(options =>
             {
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DbMentoringProjectConnection"));
+                options.UseSqlServer(Configuration["ConnectionString"]);
             });
 
             Infrastructure.Configuration.RegisterServices(services);

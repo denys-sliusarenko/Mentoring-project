@@ -10,7 +10,7 @@ namespace MentoringProject.Infrastructure.Data
             : base(options)
         {
            // Database.EnsureDeleted();
-           // Database.EnsureCreated();
+           Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
