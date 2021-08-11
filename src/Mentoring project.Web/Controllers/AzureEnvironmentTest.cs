@@ -25,13 +25,21 @@ namespace MentoringProject.Controllers
             return Ok(message);
         }
 
-        //[HttpGet]
-        //[Route("getDb")]
-        //public IActionResult GetConnectionString()
-        //{
-        //    var db = configuration.GetConnectionString("DbMentorship");
-        //    return Ok(db);
-        //}
+        [HttpGet]
+        [Route("getDb")]
+        public IActionResult GetConnectionString()
+        {
+            var db = configuration.GetConnectionString("DbConnection");
+            return Ok(db);
+        }
+
+        [HttpGet]
+        [Route("getKeyVault")]
+        public IActionResult GetMyKeyVault()
+        {
+           // var db = configuration.GetConnectionString("DbConnection");
+            return Ok();
+        }
 
         [HttpGet]
         [Route("getGuid")]
