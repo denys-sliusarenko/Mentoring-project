@@ -13,23 +13,23 @@ namespace MentoringProject.Controllers
     [ApiController]
     public class AzureEnvironmentTest : ControllerBase
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
         public AzureEnvironmentTest(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
         [HttpGet]
         public IActionResult Get()
         {
             var message = Environment.GetEnvironmentVariable("MY_MESSAGE");
-            return Ok(message);
+            return Ok(message+"3445");
         }
 
         [HttpGet]
         [Route("getDb")]
         public IActionResult GetConnectionString()
         {
-            var db = configuration.GetConnectionString("DbConnection");
+            var db = _configuration.GetConnectionString("DbConnection");
             return Ok(db);
         }
 
@@ -37,8 +37,8 @@ namespace MentoringProject.Controllers
         [Route("getKeyVault")]
         public IActionResult GetMyKeyVault()
         {
-           // var db = configuration.GetConnectionString("DbConnection");
-            return Ok();
+            var value = _configuration["mypersonalkeyvault"];
+            return Ok(value);
         }
 
         [HttpGet]
