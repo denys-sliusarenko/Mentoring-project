@@ -20,6 +20,7 @@ namespace MentoringProject.Web.Tests
     {
         private DbFixture _dbFixture;
         private readonly IMapper _mapper;
+
         public UsersControllerTest(DbFixture dbFixture)
         {
             _dbFixture = dbFixture;

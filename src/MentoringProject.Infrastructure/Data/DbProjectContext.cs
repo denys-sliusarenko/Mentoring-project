@@ -6,12 +6,14 @@ namespace MentoringProject.Infrastructure.Data
     public class DbProjectContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+
         public DbProjectContext(DbContextOptions<DbProjectContext> options)
             : base(options)
         {
            // Database.EnsureDeleted();
            Database.EnsureCreated();
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
@@ -34,7 +36,7 @@ namespace MentoringProject.Infrastructure.Data
                         UserId = 3,
                         FirstName = "Alice",
                         LastName = "Wolker"
-                    }
+                    },
                 });
         }
     }

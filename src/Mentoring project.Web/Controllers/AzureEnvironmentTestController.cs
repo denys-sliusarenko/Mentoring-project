@@ -11,13 +11,15 @@ namespace MentoringProject.Controllers
 {
     [Route("api/env")]
     [ApiController]
-    public class AzureEnvironmentTest : ControllerBase
+    public class AzureEnvironmentTestController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public AzureEnvironmentTest(IConfiguration configuration)
+
+        public AzureEnvironmentTestController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
         [HttpGet]
         public IActionResult Get()
         {

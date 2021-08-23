@@ -9,6 +9,7 @@ namespace MentoringProject.ViewModels
     public class CreateUserViewModel
     {
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
     }
 }

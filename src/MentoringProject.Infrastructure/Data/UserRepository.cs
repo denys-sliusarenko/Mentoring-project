@@ -14,6 +14,7 @@ namespace MentoringProject.Infrastructure.Data
         {
             this.db = context;
         }
+
         public void Create(User item)
         {
             db.Users.Add(item);
