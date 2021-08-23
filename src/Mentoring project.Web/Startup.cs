@@ -34,7 +34,8 @@ namespace MentoringProject
             });
             services.AddDbContext<DbProjectContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
+                options.UseSqlServer(Configuration["ConnectionString"]);
+                // options.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             });
 
             Infrastructure.Configuration.RegisterServices(services);
@@ -68,18 +69,18 @@ namespace MentoringProject
 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
-                if (env.IsDevelopment())
-                {
+               // if (env.IsDevelopment())
+               // {
                     var exception = context.Features
                         .Get<IExceptionHandlerPathFeature>()
                         .Error;
                     var response = new { error = exception.Message };
                     await context.Response.WriteAsJsonAsync(response);
-                }
-                else
-                {
-                    await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
-                }
+               // }
+              //  else
+              //  {
+              //      await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
+              //  }
             }));
 
             app.UseHttpsRedirection();

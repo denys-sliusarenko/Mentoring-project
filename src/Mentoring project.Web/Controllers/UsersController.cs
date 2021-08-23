@@ -4,6 +4,13 @@ using MentoringProject.Application.Interfaces;
 using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
@@ -26,6 +33,23 @@ namespace MentoringProject.Controllers
         {
             var users = _userService.GetAll();
             return Ok(users);
+        }
+
+        [HttpGet]
+        [Route("getFile")]
+        public IActionResult GetFile()
+        {
+            var users = _userService.GetAll();
+            MemoryStream ms = new MemoryStream();
+            StreamWriter sw = new StreamWriter(ms);
+            foreach (var t in users)
+            {
+                 sw.WriteLine(t.UserId + " " + t.FirstName + " " + t.LastName);
+                 sw.Flush();
+            }
+
+            ms.Seek(0, SeekOrigin.Begin);
+            return File(ms, MediaTypeNames.Text.Plain, "test.txt");
         }
 
         [HttpGet]
