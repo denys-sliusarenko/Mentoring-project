@@ -34,7 +34,7 @@ namespace MentoringProject
             });
             services.AddDbContext<DbProjectContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionString"]);
+                options.UseSqlServer(Configuration.GetConnectionString("DbConnection"));
             });
 
             Infrastructure.Configuration.RegisterServices(services);
