@@ -22,7 +22,7 @@ namespace MentoringProject.Controllers
         public IActionResult Get()
         {
             var message = Environment.GetEnvironmentVariable("MY_MESSAGE");
-            return Ok(message+"3445");
+            return Ok(message);
         }
 
         [HttpGet]
