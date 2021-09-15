@@ -39,17 +39,8 @@ namespace MentoringProject.Controllers
         [Route("getFile")]
         public IActionResult GetFile()
         {
-            var users = _userService.GetAll();
-            MemoryStream ms = new MemoryStream();
-            StreamWriter sw = new StreamWriter(ms);
-            foreach (var t in users)
-            {
-                 sw.WriteLine(t.UserId + " " + t.FirstName + " " + t.LastName);
-                 sw.Flush();
-            }
-
-            ms.Seek(0, SeekOrigin.Begin);
-            return File(ms, MediaTypeNames.Text.Plain, "test.txt");
+            var file = _userService.GetFile();
+            return file;
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 ﻿using MentoringProject.Application.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace MentoringProject.Application.Interfaces
         Task DeleteUserAsync(int id);
 
         Task<UserDTO> UpdateUserAsync(UserDTO user);
+
+        FileStreamResult GetFile();
     }
 }
