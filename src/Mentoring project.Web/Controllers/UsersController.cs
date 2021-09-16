@@ -2,14 +2,9 @@
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
 using MentoringProject.Domain.Core.Exceptions;
+using MentoringProject.Services;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +27,11 @@ namespace MentoringProject.Controllers
         public IActionResult GetUsers()
         {
             var users = _userService.GetAll();
+            using (var log = new Logger(Encoding.UTF8))
+            {
+                log.WriteLog("Get all users");
+            }
+
             return Ok(users);
         }
 
