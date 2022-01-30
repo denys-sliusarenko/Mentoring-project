@@ -6,7 +6,9 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
     public interface IUnitOfWork
     {
         IRepository<User> UserRepository { get; }
+
         void Save();
+
         Task SaveAsync();
     }
 }

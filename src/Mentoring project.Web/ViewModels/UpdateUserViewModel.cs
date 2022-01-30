@@ -8,7 +8,9 @@ namespace MentoringProject.ViewModels
     public class UpdateUserViewModel
     {
         public int UserId { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
     }
 }
