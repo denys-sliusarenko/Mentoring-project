@@ -40,6 +40,7 @@ namespace MentoringProject.Application.Services
             {
                 throw new NotFoundException($"User with {id} not found");
             }
+
             _unitOfWork.UserRepository.Delete(id);
             await _unitOfWork.SaveAsync();
         }
@@ -79,6 +80,7 @@ namespace MentoringProject.Application.Services
             {
                 throw new NotFoundException($"User with {id} not found");
             }
+
             var userDto = _mapper.Map<UserDTO>(user);
 
             return userDto;
@@ -90,6 +92,7 @@ namespace MentoringProject.Application.Services
             {
                 throw new NotFoundException();
             }
+
             var user = _mapper.Map<User>(userDto);
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.SaveAsync();
