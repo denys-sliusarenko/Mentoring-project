@@ -60,7 +60,6 @@ namespace MentoringProject.Application.Services
             foreach (var t in users)
             {
                 sw.WriteLine(t.UserId + " " + t.FirstName + " " + t.LastName);
-               
             }
 
             sw.Flush();

@@ -20,27 +20,22 @@ using Xunit;
 
 namespace MentoringProject.Web.Tests
 {
-    public class UsersControllerTest : IClassFixture<DbFixture>, IDisposable
+    public class UsersControllerTest : IClassFixture<TestDataFixture>
     {
-        private readonly DbProjectContext _context;
         private readonly IMapper _mapper;
+        private readonly TestDataFixture _testDataFixture;
 
-        public UsersControllerTest(DbFixture dbFixture)
+        public UsersControllerTest(TestDataFixture testDataFixture)
         {
             _mapper = MapperConfig.GetMapper();
-            _context = new DbProjectContext(dbFixture.GetDbOptions());
-        }
-
-        void IDisposable.Dispose()
-        {
-            _context.Dispose();
+            _testDataFixture = testDataFixture;
         }
 
         [Fact]
         public void GetUsers_WhenGetAllUserFromDatabase_ReturnAllUsersStatusOk()
         {
             // Arrange
-            var expectedUsers = GetTestDTOUsers();
+            var expectedUsers = _testDataFixture.GetTestDTOUsers();
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(repo => repo.GetAll()).Returns(expectedUsers);
 
@@ -60,7 +55,7 @@ namespace MentoringProject.Web.Tests
         public void GetUserById_WhenUserExist_ReturnUserStatusOk()
         {
             // Arrange
-            var expectedUser = GetTestDTOUsers().First();
+            var expectedUser = _testDataFixture.GetTestDTOUsers().First();
 
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns(expectedUser);
@@ -91,7 +86,6 @@ namespace MentoringProject.Web.Tests
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
-
         }
 
         [Fact]
@@ -100,7 +94,7 @@ namespace MentoringProject.Web.Tests
             // Arrange
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(repo => repo.CreateUserAsync(It.IsAny<UserDTO>()))
-            .ReturnsAsync(GetTestDTOUsers().First());
+            .ReturnsAsync(_testDataFixture.GetTestDTOUsers().First());
 
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
@@ -149,8 +143,9 @@ namespace MentoringProject.Web.Tests
         [Fact]
         public async Task UpdateUserAsync_WhenUserExist_ReturnUpdatedUserStatusOk()
         {
+            // Arrange
             var userServiceMock = new Mock<IUserService>();
-            userServiceMock.Setup(repo => repo.UpdateUserAsync(It.IsAny<UserDTO>())).ReturnsAsync(GetTestDTOUsers().First());
+            userServiceMock.Setup(repo => repo.UpdateUserAsync(It.IsAny<UserDTO>())).ReturnsAsync(_testDataFixture.GetTestDTOUsers().First());
 
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
@@ -167,7 +162,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var userServiceMock = new Mock<IUserService>();
-            userServiceMock.Setup(repo => repo.UpdateUserAsync(It.IsAny<UserDTO>())).Throws (new NotFoundException ());
+            userServiceMock.Setup(repo => repo.UpdateUserAsync(It.IsAny<UserDTO>())).Throws(new NotFoundException());
 
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
@@ -178,33 +173,5 @@ namespace MentoringProject.Web.Tests
             Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
         }
-
-        #region Helpers
-        private List<UserDTO> GetTestDTOUsers()
-        {
-            var users = new List<UserDTO>
-            {
-                new UserDTO
-                {
-                    UserId = 1,
-                    FirstName = "Tom",
-                    LastName = "Walker",
-                },
-                new UserDTO
-                {
-                    UserId = 2,
-                    FirstName = "Alice",
-                    LastName = "Walker",
-                },
-                new UserDTO
-                {
-                    UserId = 3,
-                    FirstName = "Sam",
-                    LastName = "Walker",
-                },
-            };
-            return users;
-        }
-        #endregion
     }
 }
