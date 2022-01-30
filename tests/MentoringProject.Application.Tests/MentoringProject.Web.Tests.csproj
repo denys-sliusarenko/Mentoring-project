@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Mentoring project.Web\MentoringProject.Web.csproj" />
-    <ProjectReference Include="..\..\src\Mentoring project\MentoringProject.Web.csproj" />
     <ProjectReference Include="..\MentoringProject.TestDataConfiguration\MentoringProject.TestDataConfiguration.csproj" />
   </ItemGroup>
 
