@@ -11,3 +11,12 @@ dotnet_diagnostic.SA1516.severity = error
 
 # SA1518: Use line endings correctly at end of file
 dotnet_diagnostic.SA1518.severity = error
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# SA1200: Using directives should be placed correctly
+dotnet_diagnostic.SA1200.severity = none
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = none
