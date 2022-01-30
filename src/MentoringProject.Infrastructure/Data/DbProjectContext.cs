@@ -1,4 +1,5 @@
 ﻿using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Infrastructure.ConfigurationModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace MentoringProject.Infrastructure.Data
@@ -13,9 +14,12 @@ namespace MentoringProject.Infrastructure.Data
            // Database.EnsureDeleted();
            Database.EnsureCreated();
         }
-
+ 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
@@ -23,19 +27,19 @@ namespace MentoringProject.Infrastructure.Data
                     {
                         UserId = 1,
                         FirstName = "Tom",
-                        LastName = "Wolker"
+                        LastName = "Wolker",
                     },
                     new User()
                     {
                          UserId = 2,
                          FirstName = "Adam",
-                         LastName = "Wolker"
+                         LastName = "Wolker",
                     },
                     new User()
                     {
                         UserId = 3,
                         FirstName = "Alice",
-                        LastName = "Wolker"
+                        LastName = "Wolker",
                     },
                 });
         }
