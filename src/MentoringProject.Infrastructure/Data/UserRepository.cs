@@ -24,7 +24,9 @@ namespace MentoringProject.Infrastructure.Data
         {
             User user = db.Users.Find(id);
             if (user != null)
+            {
                 db.Users.Remove(user);
+            }
         }
 
         public async Task<bool> Exist(int id)
