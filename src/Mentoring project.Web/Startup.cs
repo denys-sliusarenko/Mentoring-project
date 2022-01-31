@@ -1,6 +1,7 @@
 using AutoMapper;
 using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
+using MentoringProject.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,7 @@ namespace MentoringProject
             });
             services.AddDbContext<DbProjectContext>(options =>
             {
-               // options.UseSqlServer(Configuration["ConnectionString"]);
+                // options.UseSqlServer(Configuration["ConnectionString"]);
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnection")); //for azure
             });
 
@@ -69,18 +70,14 @@ namespace MentoringProject
 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
-               // if (env.IsDevelopment())
-               // {
-                    var exception = context.Features
-                        .Get<IExceptionHandlerPathFeature>()
-                        .Error;
-                    var response = new { error = exception.Message };
-                    await context.Response.WriteAsJsonAsync(response);
-               // }
-              //  else
-              //  {
-              //      await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
-              //  }
+                if (env.IsDevelopment())
+                {
+                    app.UseMiddleware<ErrorHandlerMiddleware>();
+                }
+                else
+                {
+                    await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
+                }
             }));
 
             app.UseHttpsRedirection();

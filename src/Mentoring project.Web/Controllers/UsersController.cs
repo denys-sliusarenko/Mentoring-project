@@ -1,12 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
-using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.Services;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
 {
@@ -47,15 +46,8 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public IActionResult GetUserById(int id)
         {
-            try
-            {
-                var user = _userService.GetUserById(id);
-                return Ok(user);
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var user = _userService.GetUserById(id);
+            return Ok(user);
         }
 
         [HttpPost]
@@ -70,30 +62,16 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteUserAsync(int id)
         {
-            try
-            {
-                await _userService.DeleteUserAsync(id);
-                return NoContent();
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex);
-            }
+            await _userService.DeleteUserAsync(id);
+            return NoContent();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUserAsync([FromBody] UpdateUserViewModel user)
         {
-            try
-            {
-                var newUserDto = _mapper.Map<UserDTO>(user);
-                var updatedUser = await _userService.UpdateUserAsync(newUserDto);
-                return Ok(updatedUser);
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex);
-            }
+            var newUserDto = _mapper.Map<UserDTO>(user);
+            var updatedUser = await _userService.UpdateUserAsync(newUserDto);
+            return Ok(updatedUser);
         }
     }
 }
