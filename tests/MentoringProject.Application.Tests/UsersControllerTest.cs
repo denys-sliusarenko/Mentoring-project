@@ -81,11 +81,10 @@ namespace MentoringProject.Web.Tests
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            var result = controller.GetUserById(It.IsAny<int>()) as ObjectResult;
+            Action act = () => controller.GetUserById(It.IsAny<int>());
 
             // Assert
-            Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
+            Assert.Throws<NotFoundException>(act);
         }
 
         [Fact]
@@ -124,20 +123,20 @@ namespace MentoringProject.Web.Tests
         }
 
         [Fact]
-        public async Task DeleteUserAsync_WhenUserNotExist_ReturnStatusNoFound()
+        public void DeleteUserAsync_WhenUserNotExist_ReturnStatusNoFound()
         {
             // Arrange
             var userServiceMock = new Mock<IUserService>();
+            userServiceMock.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((UserDTO)null);
             userServiceMock.Setup(repo => repo.DeleteUserAsync(It.IsAny<int>())).Throws(new NotFoundException());
 
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.DeleteUserAsync(It.IsAny<int>()) as ObjectResult;
+            Func<Task> act = () => controller.DeleteUserAsync(It.IsAny<int>());
 
             // Assert
-            Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
+            Assert.ThrowsAsync<NotFoundException>(act);
         }
 
         [Fact]
@@ -158,7 +157,7 @@ namespace MentoringProject.Web.Tests
         }
 
         [Fact]
-        public async Task UpdateUserAsync_WhenUserNotExist_ReturnNotFoundObjectrResult()
+        public void UpdateUserAsync_WhenUserNotExist_ReturnNotFoundObjectrResult()
         {
             // Arrange
             var userServiceMock = new Mock<IUserService>();
@@ -167,11 +166,10 @@ namespace MentoringProject.Web.Tests
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.UpdateUserAsync(It.IsAny<UpdateUserViewModel>()) as ObjectResult;
+            Func<Task> act = () => controller.UpdateUserAsync(It.IsAny<UpdateUserViewModel>());
 
             // Assert
-            Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
+            Assert.ThrowsAsync<NotFoundException>(act);
         }
     }
 }
