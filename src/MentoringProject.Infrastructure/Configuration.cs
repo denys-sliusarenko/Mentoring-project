@@ -11,8 +11,8 @@ namespace MentoringProject.Infrastructure
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
-
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IReportService, ReportService>();
         }
     }
 }

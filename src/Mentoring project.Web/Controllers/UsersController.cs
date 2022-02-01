@@ -34,13 +34,13 @@ namespace MentoringProject.Controllers
             return Ok(users);
         }
 
-        [HttpGet]
-        [Route("getFile")]
-        public IActionResult GetFile()
-        {
-            var file = _userService.GetFile();
-            return file;
-        }
+        //[HttpGet]
+        //[Route("getFile")]
+        //public IActionResult GetFile()
+        //{
+        //    var file = _userService.GetFile();
+        //    return file;
+        //}
 
         [HttpGet]
         [Route("{id}")]
