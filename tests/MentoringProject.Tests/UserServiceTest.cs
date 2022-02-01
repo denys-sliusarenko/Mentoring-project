@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,9 +7,7 @@ using MentoringProject.Application.Services;
 using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
-using MentoringProject.Infrastructure.Data;
 using MentoringProject.TestDataConfiguration;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -52,10 +48,10 @@ namespace MentoringProject.Web.Tests
             var userService = new UserService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            Action act = () => userService.GetUserById(It.IsAny<int>());
+            void Act() => userService.GetUserById(It.IsAny<int>());
 
             // Assert
-            Assert.Throws<NotFoundException>(act);
+            Assert.Throws<NotFoundException>(Act);
         }
 
         [Fact]
@@ -80,7 +76,6 @@ namespace MentoringProject.Web.Tests
         public async Task CreateUserAsync_CreateCorrectUser_ReturnCreatedUser()
         {
             // Arrange
-
             var unitOfWorkMock = new Mock<IUnitOfWork>();
             unitOfWorkMock.Setup(u => u.UserRepository.Create(It.IsAny<User>()));
 
@@ -120,10 +115,10 @@ namespace MentoringProject.Web.Tests
             var userService = new UserService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            Func<Task> act = () => userService.DeleteUserAsync(It.IsAny<int>());
+            Task Act() => userService.DeleteUserAsync(It.IsAny<int>());
 
             // Assert
-            await Assert.ThrowsAsync<NotFoundException>(act);
+            await Assert.ThrowsAsync<NotFoundException>(Act);
         }
 
         [Fact]
@@ -141,6 +136,7 @@ namespace MentoringProject.Web.Tests
 
             // Assert
             unitOfWorkMock.Verify(u => u.UserRepository.Update(It.IsAny<User>()));
+            updatedUser.Should().BeEquivalentTo(_testDataFixture.GetTestDTOUsers().First());
         }
 
         [Fact]
@@ -153,10 +149,10 @@ namespace MentoringProject.Web.Tests
             var userService = new UserService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            Func<Task> act = () => userService.UpdateUserAsync(_testDataFixture.GetTestDTOUsers().First());
+            Task Act() => userService.UpdateUserAsync(_testDataFixture.GetTestDTOUsers().First());
 
             // Assert
-            await Assert.ThrowsAsync<NotFoundException>(act);
+            await Assert.ThrowsAsync<NotFoundException>(Act);
         }
     }
 }

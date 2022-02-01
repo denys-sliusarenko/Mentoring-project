@@ -21,7 +21,6 @@ namespace MentoringProject.Application.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
         }
 
         public async Task<UserDTO> CreateUserAsync(UserDTO userDto)

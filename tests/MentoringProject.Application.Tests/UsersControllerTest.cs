@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
-using MentoringProject.Application.Services;
 using MentoringProject.Controllers;
 using MentoringProject.Domain.Core.Exceptions;
-using MentoringProject.Infrastructure.Data;
 using MentoringProject.TestDataConfiguration;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
@@ -50,7 +45,6 @@ namespace MentoringProject.Web.Tests
             result.Value.Should().BeEquivalentTo(expectedUsers);
         }
 
-
         [Fact]
         public void GetUserById_WhenUserExist_ReturnUserStatusOk()
         {
@@ -81,10 +75,10 @@ namespace MentoringProject.Web.Tests
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            Action act = () => controller.GetUserById(It.IsAny<int>());
+            void Act() => controller.GetUserById(It.IsAny<int>());
 
             // Assert
-            Assert.Throws<NotFoundException>(act);
+            Assert.Throws<NotFoundException>(Act);
         }
 
         [Fact]
@@ -133,10 +127,10 @@ namespace MentoringProject.Web.Tests
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            Func<Task> act = () => controller.DeleteUserAsync(It.IsAny<int>());
+            Task Act() => controller.DeleteUserAsync(It.IsAny<int>());
 
             // Assert
-            Assert.ThrowsAsync<NotFoundException>(act);
+            Assert.ThrowsAsync<NotFoundException>(Act);
         }
 
         [Fact]
@@ -166,10 +160,10 @@ namespace MentoringProject.Web.Tests
             var controller = new UsersController(userServiceMock.Object, _mapper);
 
             // Act
-            Func<Task> act = () => controller.UpdateUserAsync(It.IsAny<UpdateUserViewModel>());
+            Task Act() => controller.UpdateUserAsync(It.IsAny<UpdateUserViewModel>());
 
             // Assert
-            Assert.ThrowsAsync<NotFoundException>(act);
+            Assert.ThrowsAsync<NotFoundException>(Act);
         }
     }
 }

@@ -35,8 +35,9 @@ namespace MentoringProject
             });
             services.AddDbContext<DbProjectContext>(options =>
             {
-                // options.UseSqlServer(Configuration["ConnectionString"]);
-                options.UseSqlServer(Configuration.GetConnectionString("DbConnection")); //for azure
+                 options.UseSqlServer(Configuration["ConnectionString"]);
+
+               // options.UseSqlServer(Configuration.GetConnectionString("DbConnection")); //for azure
             });
 
             Infrastructure.Configuration.RegisterServices(services);
@@ -48,7 +49,6 @@ namespace MentoringProject
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-
 
             services.AddControllers(opt =>
             {
