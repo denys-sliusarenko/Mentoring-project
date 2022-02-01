@@ -8,7 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Application.Services
+namespace MentoringProject.Application.Reports
 {
     internal class Report
     {
