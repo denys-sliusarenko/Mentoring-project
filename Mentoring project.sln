@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D0FB0C6E-D501-4BA7-B205-C365853408ED}"
 	ProjectSection(SolutionItems) = preProject
@@ -29,6 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{152BD895-D429-4DDE-B3E6-D2C60DE5FE83}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Graph1.dgml = Graph1.dgml
 	EndProjectSection
 EndProject
 Global
