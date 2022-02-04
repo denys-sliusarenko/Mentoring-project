@@ -15,19 +15,19 @@ namespace MentoringProject.TestDataConfiguration
             {
                 new User
                 {
-                    UserId = 1,
+                    Id = 1,
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
                 new User
                 {
-                    UserId = 2,
+                    Id = 2,
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
                 new User
                 {
-                    UserId = 3,
+                    Id = 3,
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
@@ -41,19 +41,19 @@ namespace MentoringProject.TestDataConfiguration
             {
                 new UserDTO
                 {
-                    UserId = 1,
+                    Id = 1,
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
                 new UserDTO
                 {
-                    UserId = 2,
+                    Id = 2,
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
                 new UserDTO
                 {
-                    UserId = 3,
+                    Id = 3,
                     FirstName = "Sam",
                     LastName = "Walker",
                 },

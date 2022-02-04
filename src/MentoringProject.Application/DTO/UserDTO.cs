@@ -7,7 +7,7 @@ namespace MentoringProject.Application.DTO
 {
     public class UserDTO
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

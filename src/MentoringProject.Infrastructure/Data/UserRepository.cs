@@ -31,7 +31,7 @@ namespace MentoringProject.Infrastructure.Data
 
         public async Task<bool> Exist(int id)
         {
-           return await db.Users.AnyAsync(d => d.UserId == id);
+           return await db.Users.AnyAsync(d => d.Id == id);
         }
 
         public User Get(int id)

@@ -11,7 +11,7 @@ namespace MentoringProject.Infrastructure.Data
         public DbProjectContext(DbContextOptions<DbProjectContext> options)
             : base(options)
         {
-           // Database.EnsureDeleted();
+          //  Database.EnsureDeleted();
            Database.EnsureCreated();
         }
  
@@ -25,19 +25,19 @@ namespace MentoringProject.Infrastructure.Data
                 {
                     new User()
                     {
-                        UserId = 1,
+                        Id = 1,
                         FirstName = "Tom",
                         LastName = "Wolker",
                     },
                     new User()
                     {
-                         UserId = 2,
+                         Id = 2,
                          FirstName = "Adam",
                          LastName = "Wolker",
                     },
                     new User()
                     {
-                        UserId = 3,
+                        Id = 3,
                         FirstName = "Alice",
                         LastName = "Wolker",
                     },

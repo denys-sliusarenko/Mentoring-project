@@ -55,7 +55,7 @@ namespace MentoringProject.Controllers
         {
             var newUserDto = _mapper.Map<UserDTO>(user);
             var createdUser = await _userService.CreateUserAsync(newUserDto);
-            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.UserId }, createdUser);
+            return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
         }
 
         [HttpDelete]

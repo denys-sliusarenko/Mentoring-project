@@ -8,7 +8,7 @@ namespace MentoringProject.Infrastructure.ConfigurationModel
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(p => p.UserId);
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.FirstName).IsRequired();
             builder.Property(p => p.LastName).IsRequired();
         }

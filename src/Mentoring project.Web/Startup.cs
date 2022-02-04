@@ -83,6 +83,7 @@ namespace MentoringProject
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseAuthorization();
 

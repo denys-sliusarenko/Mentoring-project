@@ -26,7 +26,7 @@ namespace MentoringProject.Application.Reports
             StreamWriter sw = new (ms);
             foreach (var t in users)
             {
-                sw.WriteLine($"{t.UserId} {t.FirstName} {t.LastName}");
+                sw.WriteLine($"{t.Id} {t.FirstName} {t.LastName}");
             }
 
             sw.Flush();

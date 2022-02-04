@@ -58,7 +58,7 @@ namespace MentoringProject.Application.Services
             StreamWriter sw = new (ms);
             foreach (var t in users)
             {
-                sw.WriteLine($"{t.UserId} {t.FirstName} {t.LastName}");
+                sw.WriteLine($"{t.Id} {t.FirstName} {t.LastName}");
             }
 
             sw.Flush();
@@ -86,7 +86,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<UserDTO> UpdateUserAsync(UserDTO userDto)
         {
-            if (!await _unitOfWork.UserRepository.Exist(userDto.UserId))
+            if (!await _unitOfWork.UserRepository.Exist(userDto.Id))
             {
                 throw new NotFoundException();
             }
