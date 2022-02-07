@@ -13,10 +13,10 @@ namespace MentoringProject.Application.Interfaces
 
         Task<CarDTO> GetAsync(Guid id);
 
-        Task<CarDTO> CreateAsync(CarDTO user);
+        Task<CarDTO> CreateAsync(CarDTO carDto);
 
         Task DeleteAsync(Guid id);
 
-        Task<CarDTO> UpdateAsync(CarDTO user);
+        Task<CarDTO> UpdateAsync(CarDTO carDto);
     }
 }

@@ -48,7 +48,7 @@ namespace MentoringProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateOwnerViewModel owner)
+        public async Task<IActionResult> CreateAsync([FromBody] OwnerCreateViewModel owner)
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var createdOwner = await _ownerService.CreateAsync(newOwnerDto);
@@ -65,7 +65,7 @@ namespace MentoringProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdateOwnerViewModel owner)
+        public async Task<IActionResult> UpdateAsync([FromBody] OwnerUpdateViewModel owner)
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var updatedOwner = await _ownerService.UpdateAsync(newOwnerDto);

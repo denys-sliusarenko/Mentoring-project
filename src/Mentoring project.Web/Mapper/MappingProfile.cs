@@ -9,12 +9,15 @@ namespace MentoringProject.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<CreateOwnerViewModel, OwnerDTO>();
-            CreateMap<UpdateOwnerViewModel, OwnerDTO>();
+            CreateMap<OwnerCreateViewModel, OwnerDTO>();
+            CreateMap<OwnerUpdateViewModel, OwnerDTO>();
             CreateMap<OwnerDTO, OwnerViewModel>();
             CreateMap<Owner, OwnerDTO>().ReverseMap();
             CreateMap<Car, CarDTO>().ReverseMap();
             CreateMap<OwnerCar, OwnerCarDTO>().ReverseMap();
+            CreateMap<CarDTO, CarViewModel>();
+            CreateMap<CarCreateViewModel, CarDTO>();
+            CreateMap<CarUpdateViewModel, CarDTO>();
         }
     }
 }

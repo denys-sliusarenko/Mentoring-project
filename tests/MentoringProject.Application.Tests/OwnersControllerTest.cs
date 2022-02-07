@@ -96,7 +96,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.CreateAsync(It.IsAny<CreateOwnerViewModel>()) as ObjectResult;
+            var result = await controller.CreateAsync(It.IsAny<OwnerCreateViewModel>()) as ObjectResult;
 
             // Assert
             Assert.IsType<CreatedAtActionResult>(result);
@@ -147,7 +147,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.UpdateAsync(It.IsAny<UpdateOwnerViewModel>()) as ObjectResult;
+            var result = await controller.UpdateAsync(It.IsAny<OwnerUpdateViewModel>()) as ObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -164,7 +164,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            async Task Act() => await controller.UpdateAsync(It.IsAny<UpdateOwnerViewModel>());
+            async Task Act() => await controller.UpdateAsync(It.IsAny<OwnerUpdateViewModel>());
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(Act);

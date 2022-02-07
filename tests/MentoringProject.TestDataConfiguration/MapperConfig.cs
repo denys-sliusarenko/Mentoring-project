@@ -18,6 +18,7 @@ namespace MentoringProject.TestDataConfiguration
                 IMapper mapper = mappingConfig.CreateMapper();
                 _mapper = mapper;
             }
+
             return _mapper;
         }
     }
