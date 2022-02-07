@@ -10,11 +10,11 @@ namespace MentoringProject.Domain.Entities
     {
         public Guid CarId { get; set; }
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         public Guid OwnerId { get; set; }
 
-        public Owner Owner { get; set; }
+        public virtual Owner Owner { get; set; }
 
         public string RegistrationNumber { get; set; }
     }
