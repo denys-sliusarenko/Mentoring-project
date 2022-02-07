@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MentoringProject.Domain.Entities
+namespace MentoringProject.Application.DTO
 {
-    public class Car
+    public class CarDTO
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public string Brand { get; set; }
 
         public string Color { get; set; }
 
-        public virtual ICollection<OwnerCar> UserCars { get; set; }
+        public virtual ICollection<OwnerCarDTO> OwnerCarDTO { get; set; }
     }
 }

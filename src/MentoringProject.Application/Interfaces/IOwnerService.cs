@@ -12,10 +12,10 @@ namespace MentoringProject.Application.Interfaces
 
         Task<OwnerDTO> GetAsync(Guid id);
 
-        Task<OwnerDTO> CreateAsync(OwnerDTO user);
+        Task<OwnerDTO> CreateAsync(OwnerDTO ownerDto);
 
         Task DeleteAsync(Guid id);
 
-        Task<OwnerDTO> UpdateAsync(OwnerDTO user);
+        Task<OwnerDTO> UpdateAsync(OwnerDTO ownerDto);
     }
 }

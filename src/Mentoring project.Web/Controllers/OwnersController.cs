@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,7 +27,9 @@ namespace MentoringProject.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var owners = _ownerService.GetAll();
+            var ownersDto = _ownerService.GetAll();
+            var owners = _mapper.Map<ICollection<OwnerViewModel>>(ownersDto);
+
             using (var log = new Logger(Encoding.UTF8))
             {
                 log.WriteLog("Get all owners");
@@ -39,16 +42,18 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var owner = await _ownerService.GetAsync(id);
+            var ownerDto = await _ownerService.GetAsync(id);
+            var owner = _mapper.Map<OwnerViewModel>(ownerDto);
             return Ok(owner);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateOwnerViewModel owner)
+        public async Task<IActionResult> CreateAsync([FromBody] OwnerCreateViewModel owner)
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var createdOwner = await _ownerService.CreateAsync(newOwnerDto);
-            return CreatedAtAction(nameof(Get), new { id = createdOwner.Id }, createdOwner);
+            var createdOwnerViewModel = _mapper.Map<OwnerViewModel>(createdOwner);
+            return CreatedAtAction(nameof(Get), new { id = createdOwnerViewModel.Id }, createdOwnerViewModel);
         }
 
         [HttpDelete]
@@ -60,11 +65,12 @@ namespace MentoringProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdateOwnerViewModel owner)
+        public async Task<IActionResult> UpdateAsync([FromBody] OwnerUpdateViewModel owner)
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var updatedOwner = await _ownerService.UpdateAsync(newOwnerDto);
-            return Ok(updatedOwner);
+            var updatedOwnerViewModel = _mapper.Map<OwnerViewModel>(updatedOwner);
+            return Ok(updatedOwnerViewModel);
         }
     }
 }

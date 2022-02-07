@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MentoringProject.ViewModels
 {
-    public class UpdateOwnerViewModel
+    public class OwnerUpdateViewModel
     {
         public Guid Id { get; set; }
 

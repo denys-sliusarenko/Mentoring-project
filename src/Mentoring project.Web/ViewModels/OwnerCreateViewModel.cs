@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MentoringProject.ViewModels
 {
-    public class CreateOwnerViewModel
+    public class OwnerCreateViewModel
     {
         public string FirstName { get; set; }
 

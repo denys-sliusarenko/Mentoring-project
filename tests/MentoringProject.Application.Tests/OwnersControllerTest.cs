@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -43,7 +44,8 @@ namespace MentoringProject.Web.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            result.Value.Should().BeEquivalentTo(expectedOwners);
+            ownerServiceMock.Verify(u => u.GetAll());
+            result.Value.Should().BeEquivalentTo(_mapper.Map<IEnumerable<OwnerViewModel>>(expectedOwners));
         }
 
         [Fact]
@@ -63,7 +65,8 @@ namespace MentoringProject.Web.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            result.Value.Should().BeEquivalentTo(expectedOwner);
+            ownerServiceMock.Verify(u => u.GetAsync(It.IsAny<Guid>()));
+            result.Value.Should().BeEquivalentTo(_mapper.Map<OwnerViewModel>(expectedOwner));
         }
 
         [Fact]
@@ -93,7 +96,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.CreateAsync(It.IsAny<CreateOwnerViewModel>()) as ObjectResult;
+            var result = await controller.CreateAsync(It.IsAny<OwnerCreateViewModel>()) as ObjectResult;
 
             // Assert
             Assert.IsType<CreatedAtActionResult>(result);
@@ -144,7 +147,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.UpdateAsync(It.IsAny<UpdateOwnerViewModel>()) as ObjectResult;
+            var result = await controller.UpdateAsync(It.IsAny<OwnerUpdateViewModel>()) as ObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -161,7 +164,7 @@ namespace MentoringProject.Web.Tests
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            async Task Act() => await controller.UpdateAsync(It.IsAny<UpdateOwnerViewModel>());
+            async Task Act() => await controller.UpdateAsync(It.IsAny<OwnerUpdateViewModel>());
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(Act);

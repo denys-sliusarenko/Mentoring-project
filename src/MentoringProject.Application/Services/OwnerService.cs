@@ -48,7 +48,7 @@ namespace MentoringProject.Application.Services
 
         public IEnumerable<OwnerDTO> GetAll()
         {
-            var owners = _unitOfWork.OwnerRepository.GetAll().ToList();
+            var owners = _unitOfWork.OwnerRepository.GetAll();
             var ownersDto = _mapper.Map<IEnumerable<OwnerDTO>>(owners);
             return ownersDto;
         }

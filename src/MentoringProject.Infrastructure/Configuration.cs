@@ -13,6 +13,7 @@ namespace MentoringProject.Infrastructure
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<ICarService, CarService>();
         }
     }
 }

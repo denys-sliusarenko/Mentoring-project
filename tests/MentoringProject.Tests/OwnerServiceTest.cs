@@ -78,7 +78,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Create(It.IsAny<Owner>()));
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Create(It.IsAny<Owner>())).Verifiable();
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
@@ -131,13 +131,14 @@ namespace MentoringProject.Web.Tests
             unitOfWorkMock.Setup(u => u.OwnerRepository.Update(It.IsAny<Owner>())).Verifiable();
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
+            var testOwner = _testDataFixture.GetTestDtoOwners().First();
 
             // Act
-            var updatedOwner = await ownerService.UpdateAsync(_testDataFixture.GetTestDtoOwners().First());
+            var updatedOwner = await ownerService.UpdateAsync(testOwner);
 
             // Assert
             unitOfWorkMock.Verify(u => u.OwnerRepository.Update(It.IsAny<Owner>()));
-            updatedOwner.Should().BeEquivalentTo(_testDataFixture.GetTestDtoOwners().First());
+            updatedOwner.Should().BeEquivalentTo(testOwner);
         }
 
         [Fact]
