@@ -8,6 +8,7 @@ namespace MentoringProject.Infrastructure.Data
     {
         private readonly DbProjectContext _db;
         private IRepository<Owner> _ownerRepository;
+        private IRepository<Car> _carRepository;
 
         public UnitOfWork(DbProjectContext db)
         {
@@ -24,6 +25,19 @@ namespace MentoringProject.Infrastructure.Data
                 }
 
                 return _ownerRepository;
+            }
+        }
+
+        public IRepository<Car> CarRepository
+        {
+            get
+            {
+                if (_carRepository == null)
+                {
+                    _carRepository = new CarRepository(_db);
+                }
+
+                return _carRepository;
             }
         }
 

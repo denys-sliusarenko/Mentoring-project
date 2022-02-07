@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,7 +27,9 @@ namespace MentoringProject.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var owners = _ownerService.GetAll();
+            var ownersDto = _ownerService.GetAll();
+            var owners = _mapper.Map<ICollection<OwnerViewModel>>(ownersDto);
+
             using (var log = new Logger(Encoding.UTF8))
             {
                 log.WriteLog("Get all owners");
@@ -39,7 +42,9 @@ namespace MentoringProject.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var owner = await _ownerService.GetAsync(id);
+            var ownerDto = await _ownerService.GetAsync(id);
+            var owner = _mapper.Map<OwnerViewModel>(ownerDto);
+
             return Ok(owner);
         }
 
