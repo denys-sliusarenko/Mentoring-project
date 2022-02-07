@@ -78,7 +78,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Create(It.IsAny<Owner>()));
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Create(It.IsAny<Owner>())).Verifiable();
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
