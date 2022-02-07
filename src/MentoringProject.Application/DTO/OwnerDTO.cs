@@ -13,7 +13,6 @@ namespace MentoringProject.Application.DTO
 
         public string LastName { get; set; }
 
-        public virtual ICollection<OwnerCarDTO> OwnersCars { get; set; }
-
+        public ICollection<OwnerCarDTO> OwnersCars { get; set; }
     }
 }

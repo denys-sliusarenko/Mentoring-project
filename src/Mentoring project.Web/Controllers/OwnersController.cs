@@ -44,7 +44,6 @@ namespace MentoringProject.Controllers
         {
             var ownerDto = await _ownerService.GetAsync(id);
             var owner = _mapper.Map<OwnerViewModel>(ownerDto);
-
             return Ok(owner);
         }
 
@@ -53,7 +52,8 @@ namespace MentoringProject.Controllers
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var createdOwner = await _ownerService.CreateAsync(newOwnerDto);
-            return CreatedAtAction(nameof(Get), new { id = createdOwner.Id }, createdOwner);
+            var createdOwnerViewModel = _mapper.Map<OwnerViewModel>(createdOwner);
+            return CreatedAtAction(nameof(Get), new { id = createdOwnerViewModel.Id }, createdOwnerViewModel);
         }
 
         [HttpDelete]
@@ -69,7 +69,8 @@ namespace MentoringProject.Controllers
         {
             var newOwnerDto = _mapper.Map<OwnerDTO>(owner);
             var updatedOwner = await _ownerService.UpdateAsync(newOwnerDto);
-            return Ok(updatedOwner);
+            var updatedOwnerViewModel = _mapper.Map<OwnerViewModel>(updatedOwner);
+            return Ok(updatedOwnerViewModel);
         }
     }
 }

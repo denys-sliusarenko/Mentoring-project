@@ -16,18 +16,23 @@ namespace MentoringProject.TestDataConfiguration
                     Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
+                    OwnersCars = new  List<OwnerCar>(),
+
                 },
                 new Owner
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
+                    OwnersCars = new  List<OwnerCar>(),
+
                 },
                 new Owner
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
+                    OwnersCars = new List<OwnerCar>(),
                 },
             };
             return owners;
@@ -42,18 +47,23 @@ namespace MentoringProject.TestDataConfiguration
                     Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
+                    OwnersCars = new List<OwnerCarDTO>(),
                 },
                 new OwnerDTO
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
+                    OwnersCars = new List<OwnerCarDTO>(),
+
                 },
                 new OwnerDTO
                 {
                     Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
+                    OwnersCars = new List<OwnerCarDTO>(),
+
                 },
             };
             return owners;

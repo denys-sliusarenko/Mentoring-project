@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -43,7 +44,8 @@ namespace MentoringProject.Web.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            result.Value.Should().BeEquivalentTo(expectedOwners);
+            ownerServiceMock.Verify(u => u.GetAll());
+            result.Value.Should().BeEquivalentTo(_mapper.Map<IEnumerable<OwnerViewModel>>(expectedOwners));
         }
 
         [Fact]
@@ -63,7 +65,8 @@ namespace MentoringProject.Web.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            result.Value.Should().BeEquivalentTo(expectedOwner);
+            ownerServiceMock.Verify(u => u.GetAsync(It.IsAny<Guid>()));
+            result.Value.Should().BeEquivalentTo(_mapper.Map<OwnerViewModel>(expectedOwner));
         }
 
         [Fact]
