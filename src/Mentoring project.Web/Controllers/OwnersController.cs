@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using MentoringProject.Application.DTO;
@@ -36,7 +37,7 @@ namespace MentoringProject.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var owner = await _ownerService.GetAsync(id);
             return Ok(owner);
@@ -52,7 +53,7 @@ namespace MentoringProject.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await _ownerService.DeleteAsync(id);
             return NoContent();

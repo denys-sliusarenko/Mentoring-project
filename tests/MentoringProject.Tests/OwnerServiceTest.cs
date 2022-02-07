@@ -1,12 +1,13 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Services;
-using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
+using MentoringProject.Domain.Entities;
 using MentoringProject.TestDataConfiguration;
 using Moq;
 using Xunit;
@@ -29,14 +30,14 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<int>())).ReturnsAsync(_testDataFixture.GetTestOwners().First());
+            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<Guid>())).ReturnsAsync(_testDataFixture.GetTestOwners().First());
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            var result = ownerService.GetAsync(It.IsAny<int>());
+            var result = ownerService.GetAsync(It.IsAny<Guid>());
 
             // Assert
-            unitOfWorkMock.Verify(u => u.OwnerRepository.GetAsync(It.IsAny<int>()));
+            unitOfWorkMock.Verify(u => u.OwnerRepository.GetAsync(It.IsAny<Guid>()));
         }
 
         [Fact]
@@ -44,11 +45,11 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<int>())).Throws(new NotFoundException());
+            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<Guid>())).Throws(new NotFoundException());
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            async Task Act() => await ownerService.GetAsync(It.IsAny<int>());
+            async Task Act() => await ownerService.GetAsync(It.IsAny<Guid>());
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(Act);
@@ -93,16 +94,16 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<int>())).ReturnsAsync(_testDataFixture.GetTestOwners().First());
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Delete(It.IsAny<int>()));
+            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<Guid>())).ReturnsAsync(_testDataFixture.GetTestOwners().First());
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Delete(It.IsAny<Guid>()));
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            await ownerService.DeleteAsync(It.IsAny<int>());
+            await ownerService.DeleteAsync(It.IsAny<Guid>());
 
             // Assert
-            unitOfWorkMock.Verify(u => u.OwnerRepository.Delete(It.IsAny<int>()));
+            unitOfWorkMock.Verify(u => u.OwnerRepository.Delete(It.IsAny<Guid>()));
         }
 
         [Fact]
@@ -110,12 +111,12 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<int>())).ReturnsAsync((Owner)null);
+            unitOfWorkMock.Setup(u => u.OwnerRepository.GetAsync(It.IsAny<Guid>())).ReturnsAsync((Owner)null);
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 
             // Act
-            Task Act() => ownerService.DeleteAsync(It.IsAny<int>());
+            Task Act() => ownerService.DeleteAsync(It.IsAny<Guid>());
 
             // Assert
             await Assert.ThrowsAsync<NotFoundException>(Act);
@@ -126,7 +127,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<int>())).ReturnsAsync(true);
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<Guid>())).ReturnsAsync(true);
             unitOfWorkMock.Setup(u => u.OwnerRepository.Update(It.IsAny<Owner>())).Verifiable();
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
@@ -144,7 +145,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<int>())).ReturnsAsync(false);
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<Guid>())).ReturnsAsync(false);
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 

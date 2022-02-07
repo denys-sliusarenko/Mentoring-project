@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
-using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Domain.Core.Exceptions;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
+using MentoringProject.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MentoringProject.Application.Services
@@ -33,7 +34,7 @@ namespace MentoringProject.Application.Services
             return createdOwner;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var owner = await _unitOfWork.OwnerRepository.GetAsync(id);
             if (owner == null)
@@ -72,7 +73,7 @@ namespace MentoringProject.Application.Services
             return result;
         }
 
-        public async Task<OwnerDTO> GetAsync(int id)
+        public async Task<OwnerDTO> GetAsync(Guid id)
         {
             var owner = await _unitOfWork.OwnerRepository.GetAsync(id);
             if (owner == null)

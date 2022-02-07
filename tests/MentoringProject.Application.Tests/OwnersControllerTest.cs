@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -52,12 +53,12 @@ namespace MentoringProject.Web.Tests
             var expectedOwner = _testDataFixture.GetTestDtoOwners().First();
 
             var ownerServiceMock = new Mock<IOwnerService>();
-            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync(expectedOwner);
+            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<Guid>())).ReturnsAsync(expectedOwner);
 
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.Get(It.IsAny<int>()) as ObjectResult;
+            var result = await controller.Get(It.IsAny<Guid>()) as ObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -70,12 +71,12 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var ownerServiceMock = new Mock<IOwnerService>();
-            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<int>())).Throws(new NotFoundException());
+            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<Guid>())).Throws(new NotFoundException());
 
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            async Task ActAsync() => await controller.Get(It.IsAny<int>());
+            async Task ActAsync() => await controller.Get(It.IsAny<Guid>());
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(ActAsync);
@@ -104,12 +105,12 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var ownerServiceMock = new Mock<IOwnerService>();
-            ownerServiceMock.Setup(repo => repo.DeleteAsync(It.IsAny<int>())).Returns(Task.CompletedTask);
+            ownerServiceMock.Setup(repo => repo.DeleteAsync(It.IsAny<Guid>())).Returns(Task.CompletedTask);
 
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            var result = await controller.DeleteAsync(It.IsAny<int>()) as StatusCodeResult;
+            var result = await controller.DeleteAsync(It.IsAny<Guid>()) as StatusCodeResult;
 
             // Assert
             Assert.IsType<NoContentResult>(result);
@@ -121,13 +122,13 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var ownerServiceMock = new Mock<IOwnerService>();
-            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync((OwnerDTO)null);
-            ownerServiceMock.Setup(repo => repo.DeleteAsync(It.IsAny<int>())).Throws(new NotFoundException());
+            ownerServiceMock.Setup(repo => repo.GetAsync(It.IsAny<Guid>())).ReturnsAsync((OwnerDTO)null);
+            ownerServiceMock.Setup(repo => repo.DeleteAsync(It.IsAny<Guid>())).Throws(new NotFoundException());
 
             var controller = new OwnersController(ownerServiceMock.Object, _mapper);
 
             // Act
-            Task Act() => controller.DeleteAsync(It.IsAny<int>());
+            Task Act() => controller.DeleteAsync(It.IsAny<Guid>());
 
             // Assert
             Assert.ThrowsAsync<NotFoundException>(Act);

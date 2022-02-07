@@ -1,6 +1,6 @@
-﻿using MentoringProject.Domain.Core.Entities;
+﻿using System.Threading.Tasks;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
-using System.Threading.Tasks;
+using MentoringProject.Domain.Entities;
 
 namespace MentoringProject.Infrastructure.Data
 {

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using MentoringProject.Domain.Core.Entities;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
+using MentoringProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MentoringProject.Infrastructure.Data
@@ -20,7 +21,7 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Owners.AddAsync(item);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             Owner user = await _db.Owners.FindAsync(id);
             if (user != null)
@@ -29,12 +30,12 @@ namespace MentoringProject.Infrastructure.Data
             }
         }
 
-        public async Task<bool> Exist(int id)
+        public async Task<bool> Exist(Guid id)
         {
            return await _db.Owners.AnyAsync(d => d.Id == id);
         }
 
-        public async Task<Owner> GetAsync(int id)
+        public async Task<Owner> GetAsync(Guid id)
         {
             var owner = await _db.Owners.FindAsync(id);
             return owner;

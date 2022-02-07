@@ -1,11 +1,16 @@
-﻿namespace MentoringProject.Domain.Core.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace MentoringProject.Domain.Entities
 {
     public class Owner
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

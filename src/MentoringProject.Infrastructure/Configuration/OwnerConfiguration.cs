@@ -1,4 +1,4 @@
-﻿using MentoringProject.Domain.Core.Entities;
+﻿using MentoringProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

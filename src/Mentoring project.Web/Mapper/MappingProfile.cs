@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
-using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Entities;
 using MentoringProject.ViewModels;
 
 namespace MentoringProject.Mapper

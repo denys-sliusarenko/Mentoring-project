@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MentoringProject.Application.DTO;
-using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Entities;
 
 namespace MentoringProject.TestDataConfiguration
 {
@@ -12,19 +13,19 @@ namespace MentoringProject.TestDataConfiguration
             {
                 new Owner
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
                 new Owner
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
                 new Owner
                 {
-                    Id = 3,
+                    Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
@@ -38,19 +39,19 @@ namespace MentoringProject.TestDataConfiguration
             {
                 new OwnerDTO
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
                 new OwnerDTO
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
                 new OwnerDTO
                 {
-                    Id = 3,
+                    Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
