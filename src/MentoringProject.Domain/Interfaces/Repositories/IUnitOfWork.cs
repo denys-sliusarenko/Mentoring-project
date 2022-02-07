@@ -1,11 +1,11 @@
-﻿using MentoringProject.Domain.Core.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MentoringProject.Domain.Entities;
 
 namespace MentoringProject.Domain.Core.Interfaces.Repositories
 {
     public interface IUnitOfWork
     {
-        IRepository<User> UserRepository { get; }
+        IRepository<Owner> OwnerRepository { get; }
 
         void Save();
 

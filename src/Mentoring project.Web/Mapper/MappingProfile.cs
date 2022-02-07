@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.DTO;
-using MentoringProject.Domain.Core.Entities;
+using MentoringProject.Domain.Entities;
 using MentoringProject.ViewModels;
 
 namespace MentoringProject.Mapper
@@ -9,9 +9,9 @@ namespace MentoringProject.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<CreateUserViewModel, UserDTO>();
-            CreateMap<UpdateUserViewModel, UserDTO>();
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<CreateOwnerViewModel, OwnerDTO>();
+            CreateMap<UpdateOwnerViewModel, OwnerDTO>();
+            CreateMap<Owner, OwnerDTO>().ReverseMap();
         }
     }
 }

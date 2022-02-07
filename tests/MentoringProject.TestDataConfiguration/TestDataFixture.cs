@@ -1,64 +1,62 @@
-﻿using MentoringProject.Application.DTO;
-using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System;
 using System.Collections.Generic;
+using MentoringProject.Application.DTO;
+using MentoringProject.Domain.Entities;
 
 namespace MentoringProject.TestDataConfiguration
 {
     public class TestDataFixture
     {
-        public List<User> GetTestUsers()
+        public List<Owner> GetTestOwners()
         {
-            var users = new List<User>
+            var owners = new List<Owner>
             {
-                new User
+                new Owner
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
-                new User
+                new Owner
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
-                new User
+                new Owner
                 {
-                    Id = 3,
+                    Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
             };
-            return users;
+            return owners;
         }
 
-        public List<UserDTO> GetTestDTOUsers()
+        public List<OwnerDTO> GetTestDtoOwners()
         {
-            var users = new List<UserDTO>
+            var owners = new List<OwnerDTO>
             {
-                new UserDTO
+                new OwnerDTO
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
-                new UserDTO
+                new OwnerDTO
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
-                new UserDTO
+                new OwnerDTO
                 {
-                    Id = 3,
+                    Id = Guid.NewGuid(),
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
             };
-            return users;
+            return owners;
         }
     }
 }

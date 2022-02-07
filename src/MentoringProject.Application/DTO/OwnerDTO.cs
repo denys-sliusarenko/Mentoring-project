@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MentoringProject.ViewModels
+namespace MentoringProject.Application.DTO
 {
-    public class UpdateUserViewModel
+    public class OwnerDTO
     {
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
 

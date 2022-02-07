@@ -21,7 +21,7 @@ namespace MentoringProject.Application.Reports
 
         public override FileStreamResult GenerateReport()
         {
-            var users = _unitOfWork.UserRepository.GetAll();
+            var users = _unitOfWork.OwnerRepository.GetAll();
             MemoryStream ms = new ();
             StreamWriter sw = new (ms);
             foreach (var t in users)

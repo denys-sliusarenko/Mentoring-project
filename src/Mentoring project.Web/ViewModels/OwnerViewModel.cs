@@ -2,11 +2,13 @@
 // Copyright (c) MyCompany. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace MentoringProject.ViewModels
 {
-    public class UserViewModel
+    public class OwnerViewModel
     {
-        public int UserId { get; set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
 
