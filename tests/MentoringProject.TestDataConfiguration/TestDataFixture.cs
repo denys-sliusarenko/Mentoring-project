@@ -1,64 +1,61 @@
-﻿using MentoringProject.Application.DTO;
+﻿using System.Collections.Generic;
+using MentoringProject.Application.DTO;
 using MentoringProject.Domain.Core.Entities;
-using MentoringProject.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace MentoringProject.TestDataConfiguration
 {
     public class TestDataFixture
     {
-        public List<User> GetTestUsers()
+        public List<Owner> GetTestOwners()
         {
-            var users = new List<User>
+            var owners = new List<Owner>
             {
-                new User
+                new Owner
                 {
                     Id = 1,
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
-                new User
+                new Owner
                 {
                     Id = 2,
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
-                new User
+                new Owner
                 {
                     Id = 3,
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
             };
-            return users;
+            return owners;
         }
 
-        public List<UserDTO> GetTestDTOUsers()
+        public List<OwnerDTO> GetTestDtoOwners()
         {
-            var users = new List<UserDTO>
+            var owners = new List<OwnerDTO>
             {
-                new UserDTO
+                new OwnerDTO
                 {
                     Id = 1,
                     FirstName = "Tom",
                     LastName = "Walker",
                 },
-                new UserDTO
+                new OwnerDTO
                 {
                     Id = 2,
                     FirstName = "Alice",
                     LastName = "Walker",
                 },
-                new UserDTO
+                new OwnerDTO
                 {
                     Id = 3,
                     FirstName = "Sam",
                     LastName = "Walker",
                 },
             };
-            return users;
+            return owners;
         }
     }
 }

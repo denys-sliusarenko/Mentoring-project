@@ -9,9 +9,9 @@ namespace MentoringProject.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<CreateUserViewModel, UserDTO>();
-            CreateMap<UpdateUserViewModel, UserDTO>();
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<CreateOwnerViewModel, OwnerDTO>();
+            CreateMap<UpdateOwnerViewModel, OwnerDTO>();
+            CreateMap<Owner, OwnerDTO>().ReverseMap();
         }
     }
 }

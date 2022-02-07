@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MentoringProject.Application.DTO
 {
-    public class UserDTO
+    public class OwnerDTO
     {
         public int Id { get; set; }
 

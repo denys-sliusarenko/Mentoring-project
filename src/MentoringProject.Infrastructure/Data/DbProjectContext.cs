@@ -6,7 +6,7 @@ namespace MentoringProject.Infrastructure.Data
 {
     public class DbProjectContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<Owner> Owners { get; set; }
 
         public DbProjectContext(DbContextOptions<DbProjectContext> options)
             : base(options)
@@ -18,24 +18,24 @@ namespace MentoringProject.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new OwnerConfiguration());
 
-            modelBuilder.Entity<User>().HasData(
-                new User[]
+            modelBuilder.Entity<Owner>().HasData(
+                new Owner[]
                 {
-                    new User()
+                    new Owner()
                     {
                         Id = 1,
                         FirstName = "Tom",
                         LastName = "Wolker",
                     },
-                    new User()
+                    new Owner()
                     {
                          Id = 2,
                          FirstName = "Adam",
                          LastName = "Wolker",
                     },
-                    new User()
+                    new Owner()
                     {
                         Id = 3,
                         FirstName = "Alice",

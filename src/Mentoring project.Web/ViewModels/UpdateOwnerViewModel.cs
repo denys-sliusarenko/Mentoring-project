@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace MentoringProject.ViewModels
 {
-    public class UpdateUserViewModel
+    public class UpdateOwnerViewModel
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

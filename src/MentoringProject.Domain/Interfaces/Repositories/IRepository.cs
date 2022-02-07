@@ -11,13 +11,13 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<T> GetAll();
 
-        T Get(int id);
+        Task<T> GetAsync(int id);
 
-        void Create(T item);
+        Task Create(T item);
 
         void Update(T item);
 
-        void Delete(int id);
+        Task Delete(int id);
 
         Task<bool> Exist(int id);
     }

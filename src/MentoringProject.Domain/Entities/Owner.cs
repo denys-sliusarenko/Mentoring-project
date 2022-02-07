@@ -1,6 +1,6 @@
 ﻿namespace MentoringProject.Domain.Core.Entities
 {
-    public class User
+    public class Owner
     {
         public int Id { get; set; }
 

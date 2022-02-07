@@ -7,20 +7,23 @@ namespace MentoringProject.Infrastructure.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbProjectContext _db;
-        private IRepository<User> userRepository;
+        private IRepository<Owner> _ownerRepository;
 
         public UnitOfWork(DbProjectContext db)
         {
             _db = db;
         }
 
-        public IRepository<User> UserRepository
+        public IRepository<Owner> OwnerRepository
         {
             get
             {
-                if (userRepository == null)
-                    userRepository = new UserRepository(_db);
-                return userRepository;
+                if (_ownerRepository == null)
+                {
+                    _ownerRepository = new OwnerRepository(_db);
+                }
+
+                return _ownerRepository;
             }
         }
 

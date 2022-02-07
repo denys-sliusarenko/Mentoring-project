@@ -5,7 +5,7 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
 {
     public interface IUnitOfWork
     {
-        IRepository<User> UserRepository { get; }
+        IRepository<Owner> OwnerRepository { get; }
 
         void Save();
 
