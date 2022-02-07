@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -46,7 +47,7 @@ namespace MentoringProject.Application.Services
 
         public IEnumerable<OwnerDTO> GetAll()
         {
-            var owners = _unitOfWork.OwnerRepository.GetAll();
+            var owners = _unitOfWork.OwnerRepository.GetAll().ToList();
             var ownersDto = _mapper.Map<IEnumerable<OwnerDTO>>(owners);
             return ownersDto;
         }

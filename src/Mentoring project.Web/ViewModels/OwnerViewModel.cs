@@ -4,9 +4,9 @@
 
 namespace MentoringProject.ViewModels
 {
-    public class UserViewModel
+    public class OwnerViewModel
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         public string FirstName { get; set; }
 
