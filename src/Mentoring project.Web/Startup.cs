@@ -80,11 +80,10 @@ namespace MentoringProject
                 }
             }));
 
+            app.UseCors(options => options.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(builder => builder.AllowAnyOrigin());
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
