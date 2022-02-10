@@ -8,6 +8,8 @@ namespace MentoringProject.Application.DTO
 {
     public class OwnerCarDTO
     {
+        public Guid Id { get; set; }
+
         public Guid CarId { get; set; }
 
         public CarDTO Car { get; set; }

@@ -12,7 +12,7 @@ namespace MentoringProject.Infrastructure.Data
 
         public DbSet<Car> Cars { get; set; }
 
-        public DbSet<OwnerCar> UserCars { get; set; }
+        public DbSet<OwnerCar> OwnerCar { get; set; }
 
         public DbProjectContext(DbContextOptions<DbProjectContext> options)
             : base(options)

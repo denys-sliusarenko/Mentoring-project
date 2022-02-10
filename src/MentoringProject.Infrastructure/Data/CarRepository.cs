@@ -25,7 +25,7 @@ namespace MentoringProject.Infrastructure.Data
 
         public async Task Delete(Guid id)
         {
-            Car car = await _db.Cars.FindAsync(id);
+            var car = await _db.Cars.FindAsync(id);
             if (car != null)
             {
                 _db.Cars.Remove(car);
