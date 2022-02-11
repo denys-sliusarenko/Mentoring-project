@@ -8,6 +8,8 @@ namespace MentoringProject.Application.DTO
 {
     public record OwnerCarDTO
     {
+        public Guid Id { get; set; }
+
         public Guid CarId { get; set; }
 
         public virtual CarDTO Car { get; set; }

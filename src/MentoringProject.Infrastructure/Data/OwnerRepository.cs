@@ -22,9 +22,9 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Owners.AddAsync(item);
         }
 
-        public async Task Delete(params object[] keys)
+        public async Task Delete(Guid id)
         {
-            Owner user = await _db.Owners.FindAsync(keys);
+            Owner user = await _db.Owners.FindAsync(id);
             if (user != null)
             {
                 _db.Owners.Remove(user);
@@ -36,9 +36,9 @@ namespace MentoringProject.Infrastructure.Data
             return await _db.Owners.AnyAsync(predicate);
         }
 
-        public async Task<Owner> GetAsync(params object[] keys)
+        public async Task<Owner> GetAsync(Guid id)
         {
-            var owner = await _db.Owners.FindAsync(keys);
+            var owner = await _db.Owners.FindAsync(id);
             return owner;
         }
 

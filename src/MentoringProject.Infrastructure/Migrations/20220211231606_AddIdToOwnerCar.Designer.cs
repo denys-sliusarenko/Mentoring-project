@@ -4,6 +4,7 @@ using MentoringProject.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MentoringProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DbProjectContext))]
-    partial class DbProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220211231606_AddIdToOwnerCar")]
+    partial class AddIdToOwnerCar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

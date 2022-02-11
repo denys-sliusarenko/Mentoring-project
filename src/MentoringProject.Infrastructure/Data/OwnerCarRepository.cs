@@ -22,9 +22,9 @@ namespace MentoringProject.Infrastructure.Data
             await _db.OwnerCars.AddAsync(item);
         }
 
-        public async Task Delete(params object[] keys)
+        public async Task Delete(Guid id)
         {
-            var ownerCar = await _db.OwnerCars.FindAsync(keys);
+            var ownerCar = await _db.OwnerCars.FindAsync(id);
             if (ownerCar != null)
             {
                 _db.OwnerCars.Remove(ownerCar);
@@ -41,9 +41,9 @@ namespace MentoringProject.Infrastructure.Data
             return _db.OwnerCars;
         }
 
-        public async Task<OwnerCar> GetAsync(params object[] keys)
+        public async Task<OwnerCar> GetAsync(Guid id)
         {
-            var ownerCar = await _db.OwnerCars.FindAsync(keys);
+            var ownerCar = await _db.OwnerCars.FindAsync(id);
             return ownerCar;
         }
 
