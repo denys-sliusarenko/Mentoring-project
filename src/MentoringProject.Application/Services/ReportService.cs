@@ -19,9 +19,15 @@ namespace MentoringProject.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public FileStreamResult GenerateUsersTextReport()
+        public FileStreamResult GenerateOwnersTextReport()
         {
-            Report report = new Report(new UserTextReportFactory(_unitOfWork));
+            var report = new Report(new OwnersTextReportFactory(_unitOfWork));
+            return report.GenerateReport();
+        }
+
+        public FileStreamResult GenerateOwnerCarsTextReport()
+        {
+            var report = new Report(new OwnerCarsTextReportFactory(_unitOfWork));
             return report.GenerateReport();
         }
     }

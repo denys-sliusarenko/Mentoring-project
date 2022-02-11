@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MentoringProject.Application.DTO
 {
-    public class CarDTO
+    public record CarDTO
     {
         public Guid Id { get; set; }
 

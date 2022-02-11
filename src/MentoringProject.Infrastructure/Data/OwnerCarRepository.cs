@@ -22,7 +22,7 @@ namespace MentoringProject.Infrastructure.Data
             await _db.OwnerCars.AddAsync(item);
         }
 
-        public async Task Delete(params object[]keys)
+        public async Task Delete(params object[] keys)
         {
             var ownerCar = await _db.OwnerCars.FindAsync(keys);
             if (ownerCar != null)

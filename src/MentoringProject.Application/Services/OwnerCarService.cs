@@ -25,8 +25,17 @@ namespace MentoringProject.Application.Services
         public IEnumerable<OwnerCarDTO> GetOwnerCarsAsync(Guid idOwner)
         {
             var ownerCars = _unitOfWork.OwnerCarRepository.GetAll().Where(o => o.OwnerId.Equals(idOwner));
-           var ownersCarsDto = _mapper.Map<IEnumerable<OwnerCarDTO>>(ownerCars);
-           return ownersCarsDto;
+            var ownersCarsDto = _mapper.Map<IEnumerable<OwnerCarDTO>>(ownerCars);
+            return ownersCarsDto;
+        }
+
+        public async Task<OwnerCarDTO> CreateOwnerCarAsync(OwnerCarDTO ownerCarDto)
+        {
+            var newOwnerCar = _mapper.Map<OwnerCar>(ownerCarDto);
+            await _unitOfWork.OwnerCarRepository.Create(newOwnerCar);
+            await _unitOfWork.SaveAsync();
+            var createdOwnerCar = _mapper.Map<OwnerCarDTO>(newOwnerCar);
+            return createdOwnerCar;
         }
 
 

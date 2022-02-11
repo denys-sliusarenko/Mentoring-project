@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using MentoringProject.Application.DTO;
 using MentoringProject.Application.Interfaces;
 using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
 {
@@ -21,21 +22,23 @@ namespace MentoringProject.Controllers
             _mapper = mapper;
         }
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    var ownerCarsDto = _ownerCarService.GetAll();
-        //    var cars = _mapper.Map<ICollection<OwnerCarViewModel>>(ownerCarsDto);
-        //    return Ok(cars);
-        //}
-
         [HttpGet]
-        [Route("{idOwner}")]
+        [Route("getOwnerCars/{idOwner}")]
         public IActionResult Get(Guid idOwner)
         {
             var ownerCarsDto = _ownerCarService.GetOwnerCarsAsync(idOwner);
             var ownerCars = _mapper.Map<IEnumerable<OwnerCarViewModel>>(ownerCarsDto);
             return Ok(ownerCars);
+        }
+
+        [HttpPost]
+        [Route("addCarOwner")]
+        public async Task<IActionResult> AddCarToOwner(CreatedOwnerCarViewModel createOwnerCarViewModel)
+        {
+            var ownerCarsDto = _mapper.Map<OwnerCarDTO>(createOwnerCarViewModel);
+            var newOwnerCarDto = await _ownerCarService.CreateOwnerCarAsync(ownerCarsDto);
+            var newOwnerCarViewModel = _mapper.Map<CreatedOwnerCarViewModel>(newOwnerCarDto);
+            return Ok(newOwnerCarViewModel);
         }
     }
 }

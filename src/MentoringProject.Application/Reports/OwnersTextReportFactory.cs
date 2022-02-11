@@ -10,18 +10,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MentoringProject.Application.Reports
 {
-    internal class UserTextReportFactory : ReportFactory
+    internal class OwnersTextReportFactory : ReportFactory
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserTextReportFactory(IUnitOfWork unitOfWork)
+        public OwnersTextReportFactory(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public override ReportType GetReportType()
         {
-            return new UsersTextReport(_unitOfWork);
+            return new OwnersTextReport(_unitOfWork);
         }
     }
 }
