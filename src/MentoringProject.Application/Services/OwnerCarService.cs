@@ -38,6 +38,18 @@ namespace MentoringProject.Application.Services
             return createdOwnerCar;
         }
 
+        public async Task DeleteAsync(Guid idOwnerCar)
+        {
+            var ownerCar = await _unitOfWork.OwnerCarRepository.GetAsync(idOwnerCar);
+            if (ownerCar == null)
+            {
+                throw new NotFoundException($"Owner car with {idOwnerCar} not found");
+            }
+
+            await _unitOfWork.OwnerCarRepository.Delete(idOwnerCar);
+            await _unitOfWork.SaveAsync();
+        }
+
 
         //public async Task<OwnerCarDTO> CreateAsync(OwnerCarDTO ownerCarDto)
         //{

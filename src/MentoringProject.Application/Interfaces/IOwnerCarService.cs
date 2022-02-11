@@ -10,5 +10,7 @@ namespace MentoringProject.Application.Interfaces
         IEnumerable<OwnerCarDTO> GetOwnerCarsAsync(Guid idOwner);
 
         Task<OwnerCarDTO> CreateOwnerCarAsync(OwnerCarDTO ownerCarDto);
+
+        Task DeleteAsync(Guid idOwner);
     }
 }

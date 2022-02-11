@@ -40,5 +40,13 @@ namespace MentoringProject.Controllers
             var newOwnerCarViewModel = _mapper.Map<OwnerCarCreatedViewModel>(newOwnerCarDto);
             return Ok(newOwnerCarViewModel);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteCarInOwner(Guid idOwnerCar)
+        {
+            await _ownerCarService.DeleteAsync(idOwnerCar);
+            return NoContent();
+        }
     }
 }
