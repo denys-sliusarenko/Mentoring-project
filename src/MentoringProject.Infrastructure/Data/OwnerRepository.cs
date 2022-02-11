@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Domain.Entities;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MentoringProject.Infrastructure.Data
 {
-    public class OwnerRepository : IRepository<Owner>
+    internal class OwnerRepository : IRepository<Owner>
     {
         private DbProjectContext _db;
 
@@ -30,9 +31,9 @@ namespace MentoringProject.Infrastructure.Data
             }
         }
 
-        public async Task<bool> Exist(Guid id)
+        public async Task<bool> Exist(Expression<Func<Owner, bool>> predicate)
         {
-           return await _db.Owners.AnyAsync(d => d.Id == id);
+            return await _db.Owners.AnyAsync(predicate);
         }
 
         public async Task<Owner> GetAsync(Guid id)

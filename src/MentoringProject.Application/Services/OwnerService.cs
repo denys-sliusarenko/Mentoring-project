@@ -56,8 +56,8 @@ namespace MentoringProject.Application.Services
         public FileStreamResult GetFile()
         {
             var owners = _unitOfWork.OwnerRepository.GetAll();
-            MemoryStream ms = new ();
-            StreamWriter sw = new (ms);
+            MemoryStream ms = new();
+            StreamWriter sw = new(ms);
             foreach (var t in owners)
             {
                 sw.WriteLine($"{t.Id} {t.FirstName} {t.LastName}");
@@ -65,7 +65,7 @@ namespace MentoringProject.Application.Services
 
             sw.Flush();
             ms.Seek(0, SeekOrigin.Begin);
-            FileStreamResult result = new (ms, MediaTypeNames.Text.Plain)
+            FileStreamResult result = new(ms, MediaTypeNames.Text.Plain)
             {
                 FileDownloadName = "test.txt",
             };
@@ -88,7 +88,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<OwnerDTO> UpdateAsync(OwnerDTO ownerDto)
         {
-            if (!await _unitOfWork.OwnerRepository.Exist(ownerDto.Id))
+            if (!await _unitOfWork.OwnerRepository.Exist(o=> o.Id.Equals(ownerDto.Id)))
             {
                 throw new NotFoundException();
             }

@@ -7,19 +7,22 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace MentoringProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DbProjectContext))]
-    [Migration("20220207191404_Initial")]
-    partial class Initial
+    [Migration("20220211124045_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.Car", b =>
                 {
@@ -42,19 +45,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3cdfe332-bd96-4b20-9895-2bbb3bc13e85"),
+                            Id = new Guid("ba76963d-cfc4-4b49-a026-304a8f099424"),
                             Brand = "BMW",
                             Color = "Red"
                         },
                         new
                         {
-                            Id = new Guid("37ceaac3-1594-401f-bdf4-b905bdc594ca"),
+                            Id = new Guid("3aba351f-87ba-46e4-86aa-2b164eeb6965"),
                             Brand = "Mercedes",
                             Color = "Black"
                         },
                         new
                         {
-                            Id = new Guid("689283d4-87ae-4f1f-b64b-6babd9f5773a"),
+                            Id = new Guid("dc4540e2-8bf0-4d2b-8e88-14fa7d367a42"),
                             Brand = "Nissan",
                             Color = "White"
                         });
@@ -81,19 +84,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0887def0-465e-458a-af06-77ff184fbec1"),
+                            Id = new Guid("5391fc12-1596-4cf4-9db7-b6c8bd087f13"),
                             FirstName = "Tom",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("240886dd-049b-4796-9efd-cbf2c8909937"),
+                            Id = new Guid("259844cc-770f-419d-ada4-6c7879aa0033"),
                             FirstName = "Adam",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("cd3f8856-9b1f-4324-840f-921117fb8304"),
+                            Id = new Guid("b41fb727-56c6-4e62-8d96-905da9dcf5c9"),
                             FirstName = "Alice",
                             LastName = "Wolker"
                         });
@@ -115,7 +118,7 @@ namespace MentoringProject.Infrastructure.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("UserCars");
+                    b.ToTable("OwnerCars");
                 });
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.OwnerCar", b =>

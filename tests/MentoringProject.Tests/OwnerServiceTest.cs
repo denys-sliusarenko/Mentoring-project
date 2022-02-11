@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -127,7 +128,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<Guid>())).ReturnsAsync(true);
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<Expression<Func<Owner, bool>>>())).ReturnsAsync(true);
             unitOfWorkMock.Setup(u => u.OwnerRepository.Update(It.IsAny<Owner>())).Verifiable();
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
@@ -146,7 +147,7 @@ namespace MentoringProject.Web.Tests
         {
             // Arrange
             var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(It.IsAny<Guid>())).ReturnsAsync(false);
+            unitOfWorkMock.Setup(u => u.OwnerRepository.Exist(d=>d.Id.Equals(It.IsAny<Guid>()))).ReturnsAsync(false);
 
             var ownerService = new OwnerService(unitOfWorkMock.Object, _mapper);
 

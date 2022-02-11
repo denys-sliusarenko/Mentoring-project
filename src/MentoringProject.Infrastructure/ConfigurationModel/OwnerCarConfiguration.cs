@@ -8,7 +8,9 @@ namespace MentoringProject.Infrastructure.ConfigurationModel
     {
         public void Configure(EntityTypeBuilder<OwnerCar> builder)
         {
-            builder.HasKey(t => new { t.OwnerId, t.CarId });
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.HasAlternateKey(t => new { t.OwnerId, t.CarId });
             builder.Property(p => p.RegistrationNumber).IsRequired();
         }
     }

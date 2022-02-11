@@ -9,6 +9,8 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
 
         IRepository<Car> CarRepository { get; }
 
+        IRepository<OwnerCar> OwnerCarRepository { get; }
+
         void Save();
 
         Task SaveAsync();

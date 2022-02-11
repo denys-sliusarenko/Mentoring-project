@@ -3,7 +3,6 @@ using MentoringProject.Infrastructure.Data;
 using MentoringProject.Mapper;
 using MentoringProject.Middleware;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
@@ -35,9 +34,9 @@ namespace MentoringProject
             });
             services.AddDbContext<DbProjectContext>(options =>
             {
-                 options.UseSqlServer(Configuration["ConnectionString"]);
+                options.UseSqlServer(Configuration["ConnectionString"]);
 
-               // options.UseSqlServer(Configuration.GetConnectionString("DbConnection")); //for azure
+                // options.UseSqlServer(Configuration.GetConnectionString("DbConnection")); //for azure
             });
 
             Infrastructure.Configuration.RegisterServices(services);
@@ -68,17 +67,17 @@ namespace MentoringProject
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mentoring_project v1"));
             }
 
-            app.UseExceptionHandler(c => c.Run(async context =>
+            if (env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                {
-                    app.UseMiddleware<ErrorHandlerMiddleware>();
-                }
-                else
+                app.UseMiddleware<ErrorHandlerMiddleware>();
+            }
+            else
+            {
+                app.UseExceptionHandler(c => c.Run(async context =>
                 {
                     await context.Response.WriteAsJsonAsync("Oops... Something went wrong...");
-                }
-            }));
+                }));
+            }
 
             app.UseCors(options => options.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             app.UseHttpsRedirection();

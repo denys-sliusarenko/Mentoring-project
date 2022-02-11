@@ -10,21 +10,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MentoringProject.Application.Reports
 {
-    internal class UsersTextReport : ReportType
+    internal class OwnersTextReport : ReportType
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersTextReport(IUnitOfWork unitOfWork)
+        public OwnersTextReport(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public override FileStreamResult GenerateReport()
         {
-            var users = _unitOfWork.OwnerRepository.GetAll();
+            var owners = _unitOfWork.OwnerRepository.GetAll();
             MemoryStream ms = new ();
             StreamWriter sw = new (ms);
-            foreach (var t in users)
+            foreach (var t in owners)
             {
                 sw.WriteLine($"{t.Id} {t.FirstName} {t.LastName}");
             }
@@ -33,7 +33,7 @@ namespace MentoringProject.Application.Reports
             ms.Seek(0, SeekOrigin.Begin);
             FileStreamResult result = new (ms, MediaTypeNames.Text.Plain)
             {
-                FileDownloadName = $"Users text report {DateTime.Now}.txt",
+                FileDownloadName = $"Owners text report {DateTime.Now}.txt",
             };
 
             return result;

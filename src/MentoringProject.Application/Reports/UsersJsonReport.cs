@@ -28,7 +28,6 @@ namespace MentoringProject.Application.Reports
 
             sw.WriteLine(JsonSerializer.Serialize(users));
 
-            sw.WriteLine("asasasa");
             sw.Flush();
             ms.Seek(0, SeekOrigin.Begin);
             FileStreamResult result = new (ms, MediaTypeNames.Text.Plain)

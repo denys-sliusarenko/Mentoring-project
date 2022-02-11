@@ -16,10 +16,18 @@ namespace MentoringProject.Controllers
         }
 
         [HttpGet]
-        [Route("usersTextReport")]
-        public IActionResult GenerateUsersTextReport()
+        [Route("ownersTextReport")]
+        public IActionResult GenerateOwnerssTextReport()
         {
-            var file = _reportService.GenerateUsersTextReport();
+            var file = _reportService.GenerateOwnersTextReport();
+            return file;
+        }
+
+        [HttpGet]
+        [Route("ownerCarsTextReport")]
+        public IActionResult GenerateOwnerCarsTextReport()
+        {
+            var file = _reportService.GenerateOwnerCarsTextReport();
             return file;
         }
     }

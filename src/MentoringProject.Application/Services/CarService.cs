@@ -63,7 +63,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<CarDTO> UpdateAsync(CarDTO carDto)
         {
-            if (!await _unitOfWork.OwnerRepository.Exist(carDto.Id))
+            if (!await _unitOfWork.CarRepository.Exist(c => c.Id.Equals(carDto.Id)))
             {
                 throw new NotFoundException();
             }

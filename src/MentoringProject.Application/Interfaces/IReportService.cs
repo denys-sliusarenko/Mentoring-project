@@ -9,6 +9,8 @@ namespace MentoringProject.Application.Interfaces
 {
     public interface IReportService
     {
-        FileStreamResult GenerateUsersTextReport();
+        FileStreamResult GenerateOwnersTextReport();
+
+        FileStreamResult GenerateOwnerCarsTextReport();
     }
 }

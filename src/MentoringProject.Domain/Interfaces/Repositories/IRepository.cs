@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,6 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
 
         Task Delete(Guid id);
 
-        Task<bool> Exist(Guid id);
+        Task<bool> Exist(Expression<Func<T, bool>> predicate);
     }
 }

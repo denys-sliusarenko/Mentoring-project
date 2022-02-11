@@ -1,15 +1,14 @@
-﻿using MentoringProject.Domain.Core.Interfaces.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Infrastructure.Data
 {
-    class CarRepository : IRepository<Car>
+    internal class CarRepository : IRepository<Car>
     {
         private DbProjectContext _db;
 
@@ -25,16 +24,16 @@ namespace MentoringProject.Infrastructure.Data
 
         public async Task Delete(Guid id)
         {
-            Car car = await _db.Cars.FindAsync(id);
+            var car = await _db.Cars.FindAsync(id);
             if (car != null)
             {
                 _db.Cars.Remove(car);
             }
         }
 
-        public async Task<bool> Exist(Guid id)
+        public async Task<bool> Exist(Expression<Func<Car, bool>> predicate)
         {
-            return await _db.Cars.AnyAsync(d => d.Id == id);
+            return await _db.Cars.AnyAsync(predicate);
         }
 
         public async Task<Car> GetAsync(Guid id)
