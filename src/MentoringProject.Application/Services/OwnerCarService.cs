@@ -23,7 +23,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<OwnerCarDTO> CreateAsync(OwnerCarDTO ownerCarDto)
         {
-            var newOwnerCar =  _mapper.Map<OwnerCar>(ownerCarDto);
+            var newOwnerCar = _mapper.Map<OwnerCar>(ownerCarDto);
             await _unitOfWork.OwnerCarRepository.Create(newOwnerCar);
             await _unitOfWork.SaveAsync();
             var createdOwnerCar = _mapper.Map<OwnerCarDTO>(newOwnerCar);
@@ -49,9 +49,9 @@ namespace MentoringProject.Application.Services
             return ownersCarsDto;
         }
 
-        public async  Task<OwnerCarDTO> GetAsync(Guid id)
+        public async Task<OwnerCarDTO> GetAsync(Guid id)
         {
-            var ownerCar= await _unitOfWork.OwnerCarRepository.GetAsync(id);
+            var ownerCar = await _unitOfWork.OwnerCarRepository.GetAsync(id);
             if (ownerCar == null)
             {
                 throw new NotFoundException($"Owner car with {id} not found");
@@ -64,7 +64,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<OwnerCarDTO> UpdateAsync(OwnerCarDTO ownerCarDto)
         {
-            if (!await _unitOfWork.OwnerCarRepository.Exist(ownerCarDto.Id))
+            if (!await _unitOfWork.OwnerCarRepository.Exist(o=> o.CarId.Equals( ownerCarDto.CarId)&&o.OwnerId.Equals(ownerCarDto.OwnerId)))
             {
                 throw new NotFoundException();
             }

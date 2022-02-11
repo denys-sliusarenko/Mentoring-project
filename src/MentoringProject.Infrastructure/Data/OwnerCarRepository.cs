@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Domain.Entities;
@@ -21,18 +22,18 @@ namespace MentoringProject.Infrastructure.Data
             await _db.OwnerCar.AddAsync(item);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(params Guid []keys )
         {
-            var ownerCar = await _db.OwnerCar.FindAsync(id);
+            var ownerCar = await _db.OwnerCar.FindAsync(keys);
             if (ownerCar != null)
             {
                 _db.OwnerCar.Remove(ownerCar);
             }
         }
 
-        public async Task<bool> Exist(Guid id)
+        public async Task<bool> Exist(Expression<Func<OwnerCar, bool>> predicate)
         {
-            return await _db.OwnerCar.AnyAsync(d => d.Id == id);
+            return await _db.OwnerCar.AnyAsync(predicate);
         }
 
         public IEnumerable<OwnerCar> GetAll()
@@ -40,9 +41,9 @@ namespace MentoringProject.Infrastructure.Data
             return _db.OwnerCar;
         }
 
-        public async Task<OwnerCar> GetAsync(Guid id)
+        public async Task<OwnerCar> GetAsync(params Guid[] keys)
         {
-            var ownerCar = await _db.OwnerCar.FindAsync(id);
+            var ownerCar = await _db.OwnerCar.FindAsync(keys);
             return ownerCar;
         }
 

@@ -88,7 +88,7 @@ namespace MentoringProject.Application.Services
 
         public async Task<OwnerDTO> UpdateAsync(OwnerDTO ownerDto)
         {
-            if (!await _unitOfWork.OwnerRepository.Exist(ownerDto.Id))
+            if (!await _unitOfWork.OwnerRepository.Exist(o=> o.Id.Equals(ownerDto.Id)))
             {
                 throw new NotFoundException();
             }

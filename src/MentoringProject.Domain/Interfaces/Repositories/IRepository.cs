@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +12,14 @@ namespace MentoringProject.Domain.Core.Interfaces.Repositories
     {
         IEnumerable<T> GetAll();
 
-        Task<T> GetAsync(Guid id);
+        Task<T> GetAsync(params Guid[] keys);
 
         Task Create(T item);
 
         void Update(T item);
 
-        Task Delete(Guid id);
+        Task Delete(params Guid[] keys);
 
-        Task<bool> Exist(Guid id);
+        Task<bool> Exist(Expression<Func<T, bool>> predicate);
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,23 +24,23 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Cars.AddAsync(item);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(params Guid[] keys)
         {
-            var car = await _db.Cars.FindAsync(id);
+            var car = await _db.Cars.FindAsync(keys);
             if (car != null)
             {
                 _db.Cars.Remove(car);
             }
         }
 
-        public async Task<bool> Exist(Guid id)
+        public async Task<bool> Exist(Expression<Func<Car, bool>> predicate/*Guid id*/)
         {
-            return await _db.Cars.AnyAsync(d => d.Id == id);
+            return await _db.Cars.AnyAsync(predicate); //d => d.Id == id
         }
 
-        public async Task<Car> GetAsync(Guid id)
+        public async Task<Car> GetAsync(params Guid[] keys)
         {
-            var car = await _db.Cars.FindAsync(id);
+            var car = await _db.Cars.FindAsync(keys);
             return car;
         }
 

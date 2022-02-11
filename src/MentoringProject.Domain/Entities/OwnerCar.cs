@@ -8,8 +8,6 @@ namespace MentoringProject.Domain.Entities
 {
     public class OwnerCar
     {
-        public Guid Id { get; set; }
-
         public Guid CarId { get; set; }
 
         public virtual Car Car { get; set; }

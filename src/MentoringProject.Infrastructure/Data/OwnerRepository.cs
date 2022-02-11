@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Domain.Entities;
@@ -21,23 +22,23 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Owners.AddAsync(item);
         }
 
-        public async Task Delete(Guid id)
+        public async Task Delete(params Guid[] keys)
         {
-            Owner user = await _db.Owners.FindAsync(id);
+            Owner user = await _db.Owners.FindAsync(keys);
             if (user != null)
             {
                 _db.Owners.Remove(user);
             }
         }
 
-        public async Task<bool> Exist(Guid id)
+        public async Task<bool> Exist(Expression<Func<Owner, bool>> predicate)
         {
-           return await _db.Owners.AnyAsync(d => d.Id == id);
+           return await _db.Owners.AnyAsync(predicate);
         }
 
-        public async Task<Owner> GetAsync(Guid id)
+        public async Task<Owner> GetAsync(params Guid[] keys)
         {
-            var owner = await _db.Owners.FindAsync(id);
+            var owner = await _db.Owners.FindAsync(keys);
             return owner;
         }
 
