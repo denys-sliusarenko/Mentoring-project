@@ -37,7 +37,7 @@ namespace MentoringProject.Middleware
                         break;
                 }
 
-                var result = JsonSerializer.Serialize(new { message = error?.Message });
+                var result = JsonSerializer.Serialize(new { ErrorMessage = error?.Message });
                 await response.WriteAsync(result);
             }
         }
