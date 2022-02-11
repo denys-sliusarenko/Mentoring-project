@@ -9,14 +9,14 @@ namespace MentoringProject.Application.Interfaces
 {
     public interface IOwnerCarService
     {
-        IEnumerable<OwnerCarDTO> GetAll();
+        //  IEnumerable<OwnerCarDTO> GetAll();
 
-        Task<OwnerCarDTO> GetAsync(Guid id);
+        IEnumerable<OwnerCarDTO> GetOwnerCarsAsync(Guid idOwner);
 
-        Task<OwnerCarDTO> CreateAsync(OwnerCarDTO ownerCarDto);
+      //  Task<OwnerCarDTO> CreateAsync(OwnerCarDTO ownerCarDto);
 
-        Task DeleteAsync(Guid id);
+       // Task DeleteAsync(Guid id);
 
-        Task<OwnerCarDTO> UpdateAsync(OwnerCarDTO ownerCarDto);
+       // Task<OwnerCarDTO> UpdateAsync(OwnerCarDTO ownerCarDto);
     }
 }

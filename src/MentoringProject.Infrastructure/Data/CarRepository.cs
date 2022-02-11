@@ -1,16 +1,14 @@
-﻿using MentoringProject.Domain.Core.Interfaces.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using MentoringProject.Domain.Core.Interfaces.Repositories;
 using MentoringProject.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MentoringProject.Infrastructure.Data
 {
-    class CarRepository : IRepository<Car>
+    internal class CarRepository : IRepository<Car>
     {
         private DbProjectContext _db;
 
@@ -24,7 +22,7 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Cars.AddAsync(item);
         }
 
-        public async Task Delete(params Guid[] keys)
+        public async Task Delete(params object[] keys)
         {
             var car = await _db.Cars.FindAsync(keys);
             if (car != null)
@@ -33,12 +31,12 @@ namespace MentoringProject.Infrastructure.Data
             }
         }
 
-        public async Task<bool> Exist(Expression<Func<Car, bool>> predicate/*Guid id*/)
+        public async Task<bool> Exist(Expression<Func<Car, bool>> predicate)
         {
-            return await _db.Cars.AnyAsync(predicate); //d => d.Id == id
+            return await _db.Cars.AnyAsync(predicate);
         }
 
-        public async Task<Car> GetAsync(params Guid[] keys)
+        public async Task<Car> GetAsync(params object[] keys)
         {
             var car = await _db.Cars.FindAsync(keys);
             return car;

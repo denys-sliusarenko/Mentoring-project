@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using MentoringProject.Application.Interfaces;
+using MentoringProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MentoringProject.Controllers
 {
@@ -15,6 +19,23 @@ namespace MentoringProject.Controllers
         {
             _ownerCarService = ownerCarService;
             _mapper = mapper;
+        }
+
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    var ownerCarsDto = _ownerCarService.GetAll();
+        //    var cars = _mapper.Map<ICollection<OwnerCarViewModel>>(ownerCarsDto);
+        //    return Ok(cars);
+        //}
+
+        [HttpGet]
+        [Route("{idOwner}")]
+        public IActionResult Get(Guid idOwner)
+        {
+            var ownerCarsDto = _ownerCarService.GetOwnerCarsAsync(idOwner);
+            var ownerCars = _mapper.Map<IEnumerable<OwnerCarViewModel>>(ownerCarsDto);
+            return Ok(ownerCars);
         }
     }
 }

@@ -15,9 +15,10 @@ namespace MentoringProject.Mapper
             CreateMap<Owner, OwnerDTO>().ReverseMap();
             CreateMap<Car, CarDTO>().ReverseMap();
             CreateMap<OwnerCar, OwnerCarDTO>().ReverseMap();
-            CreateMap<CarDTO, CarViewModel>();
             CreateMap<CarCreateViewModel, CarDTO>();
             CreateMap<CarUpdateViewModel, CarDTO>();
+            CreateMap<CarDTO, CarViewModel>();
+            CreateMap<OwnerCarDTO, OwnerCarViewModel>();//.ForMember(dest => dest.Car, opt => opt.MapFrom(src => src.Car));
         }
     }
 }

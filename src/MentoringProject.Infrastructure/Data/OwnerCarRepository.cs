@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MentoringProject.Infrastructure.Data
 {
-    public class OwnerCarRepository : IRepository<OwnerCar>
+    internal class OwnerCarRepository : IRepository<OwnerCar>
     {
         private DbProjectContext _db;
 
@@ -19,31 +19,31 @@ namespace MentoringProject.Infrastructure.Data
 
         public async Task Create(OwnerCar item)
         {
-            await _db.OwnerCar.AddAsync(item);
+            await _db.OwnerCars.AddAsync(item);
         }
 
-        public async Task Delete(params Guid []keys )
+        public async Task Delete(params object[]keys)
         {
-            var ownerCar = await _db.OwnerCar.FindAsync(keys);
+            var ownerCar = await _db.OwnerCars.FindAsync(keys);
             if (ownerCar != null)
             {
-                _db.OwnerCar.Remove(ownerCar);
+                _db.OwnerCars.Remove(ownerCar);
             }
         }
 
         public async Task<bool> Exist(Expression<Func<OwnerCar, bool>> predicate)
         {
-            return await _db.OwnerCar.AnyAsync(predicate);
+            return await _db.OwnerCars.AnyAsync(predicate);
         }
 
         public IEnumerable<OwnerCar> GetAll()
         {
-            return _db.OwnerCar;
+            return _db.OwnerCars;
         }
 
-        public async Task<OwnerCar> GetAsync(params Guid[] keys)
+        public async Task<OwnerCar> GetAsync(params object[] keys)
         {
-            var ownerCar = await _db.OwnerCar.FindAsync(keys);
+            var ownerCar = await _db.OwnerCars.FindAsync(keys);
             return ownerCar;
         }
 

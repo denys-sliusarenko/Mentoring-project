@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MentoringProject.Infrastructure.Data
 {
-    public class OwnerRepository : IRepository<Owner>
+    internal class OwnerRepository : IRepository<Owner>
     {
         private DbProjectContext _db;
 
@@ -22,7 +22,7 @@ namespace MentoringProject.Infrastructure.Data
             await _db.Owners.AddAsync(item);
         }
 
-        public async Task Delete(params Guid[] keys)
+        public async Task Delete(params object[] keys)
         {
             Owner user = await _db.Owners.FindAsync(keys);
             if (user != null)
@@ -33,10 +33,10 @@ namespace MentoringProject.Infrastructure.Data
 
         public async Task<bool> Exist(Expression<Func<Owner, bool>> predicate)
         {
-           return await _db.Owners.AnyAsync(predicate);
+            return await _db.Owners.AnyAsync(predicate);
         }
 
-        public async Task<Owner> GetAsync(params Guid[] keys)
+        public async Task<Owner> GetAsync(params object[] keys)
         {
             var owner = await _db.Owners.FindAsync(keys);
             return owner;
