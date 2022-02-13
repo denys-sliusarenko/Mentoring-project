@@ -33,11 +33,11 @@ namespace MentoringProject.Controllers
 
         [HttpPost]
         [Route("addCarOwner")]
-        public async Task<IActionResult> AddCarToOwner(OwnerCarCreatedViewModel createOwnerCarViewModel)
+        public async Task<IActionResult> AddCarToOwner(OwnerCarCreateViewModel createOwnerCarViewModel)
         {
             var ownerCarsDto = _mapper.Map<OwnerCarDTO>(createOwnerCarViewModel);
             var newOwnerCarDto = await _ownerCarService.CreateOwnerCarAsync(ownerCarsDto);
-            var newOwnerCarViewModel = _mapper.Map<OwnerCarCreatedViewModel>(newOwnerCarDto);
+            var newOwnerCarViewModel = _mapper.Map<OwnerCarViewModel>(newOwnerCarDto);
             return Ok(newOwnerCarViewModel);
         }
 

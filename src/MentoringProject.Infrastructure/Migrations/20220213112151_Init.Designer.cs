@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MentoringProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DbProjectContext))]
-    [Migration("20220211124045_Init")]
+    [Migration("20220213112151_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,8 @@ namespace MentoringProject.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -45,19 +46,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ba76963d-cfc4-4b49-a026-304a8f099424"),
+                            Id = new Guid("c5a5ccf8-280c-4341-a9e2-678877a432df"),
                             Brand = "BMW",
                             Color = "Red"
                         },
                         new
                         {
-                            Id = new Guid("3aba351f-87ba-46e4-86aa-2b164eeb6965"),
+                            Id = new Guid("589dfdf0-60bd-4854-a7ee-91d6b30dbae9"),
                             Brand = "Mercedes",
                             Color = "Black"
                         },
                         new
                         {
-                            Id = new Guid("dc4540e2-8bf0-4d2b-8e88-14fa7d367a42"),
+                            Id = new Guid("d3dbee01-5eaa-4c80-9365-04cd007be277"),
                             Brand = "Nissan",
                             Color = "White"
                         });
@@ -67,7 +68,8 @@ namespace MentoringProject.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -84,19 +86,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5391fc12-1596-4cf4-9db7-b6c8bd087f13"),
+                            Id = new Guid("4d41b120-9dbf-48df-8325-2f9c490cf585"),
                             FirstName = "Tom",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("259844cc-770f-419d-ada4-6c7879aa0033"),
+                            Id = new Guid("ca67e360-bc52-4e41-9e0a-5ff6d40b1ff4"),
                             FirstName = "Adam",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("b41fb727-56c6-4e62-8d96-905da9dcf5c9"),
+                            Id = new Guid("a13ae253-bd19-400d-8c74-fabb31f0fb45"),
                             FirstName = "Alice",
                             LastName = "Wolker"
                         });
@@ -104,19 +106,26 @@ namespace MentoringProject.Infrastructure.Migrations
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.OwnerCar", b =>
                 {
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<Guid>("CarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RegistrationNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OwnerId", "CarId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("OwnerCars");
                 });
@@ -124,7 +133,7 @@ namespace MentoringProject.Infrastructure.Migrations
             modelBuilder.Entity("MentoringProject.Domain.Entities.OwnerCar", b =>
                 {
                     b.HasOne("MentoringProject.Domain.Entities.Car", "Car")
-                        .WithMany("UserCars")
+                        .WithMany("OwnerCars")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -142,7 +151,7 @@ namespace MentoringProject.Infrastructure.Migrations
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.Car", b =>
                 {
-                    b.Navigation("UserCars");
+                    b.Navigation("OwnerCars");
                 });
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.Owner", b =>

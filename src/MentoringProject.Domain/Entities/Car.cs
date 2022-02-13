@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,6 @@ namespace MentoringProject.Domain.Entities
 
         public string Color { get; set; }
 
-        public virtual ICollection<OwnerCar> UserCars { get; set; }
+        public virtual ICollection<OwnerCar> OwnerCars { get; set; }
     }
 }

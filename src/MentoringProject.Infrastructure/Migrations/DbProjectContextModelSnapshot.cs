@@ -26,7 +26,8 @@ namespace MentoringProject.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -43,19 +44,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f8697e51-6996-47fe-aa73-421d4384b8ac"),
+                            Id = new Guid("c5a5ccf8-280c-4341-a9e2-678877a432df"),
                             Brand = "BMW",
                             Color = "Red"
                         },
                         new
                         {
-                            Id = new Guid("089582de-6715-48dd-93d6-b011a3a68528"),
+                            Id = new Guid("589dfdf0-60bd-4854-a7ee-91d6b30dbae9"),
                             Brand = "Mercedes",
                             Color = "Black"
                         },
                         new
                         {
-                            Id = new Guid("883df809-7943-4e06-91b9-cd3ed6eb8120"),
+                            Id = new Guid("d3dbee01-5eaa-4c80-9365-04cd007be277"),
                             Brand = "Nissan",
                             Color = "White"
                         });
@@ -65,7 +66,8 @@ namespace MentoringProject.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -82,19 +84,19 @@ namespace MentoringProject.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("18b0d7ed-c4ca-409f-a2db-e2ef4b914a97"),
+                            Id = new Guid("4d41b120-9dbf-48df-8325-2f9c490cf585"),
                             FirstName = "Tom",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("9cedd152-67b9-44f2-bd5d-524681b4bde1"),
+                            Id = new Guid("ca67e360-bc52-4e41-9e0a-5ff6d40b1ff4"),
                             FirstName = "Adam",
                             LastName = "Wolker"
                         },
                         new
                         {
-                            Id = new Guid("b270753a-b4cb-4bd8-be8c-5f3bf701cec9"),
+                            Id = new Guid("a13ae253-bd19-400d-8c74-fabb31f0fb45"),
                             FirstName = "Alice",
                             LastName = "Wolker"
                         });
@@ -104,7 +106,8 @@ namespace MentoringProject.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
@@ -118,9 +121,9 @@ namespace MentoringProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("OwnerId", "CarId");
-
                     b.HasIndex("CarId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("OwnerCars");
                 });
@@ -128,7 +131,7 @@ namespace MentoringProject.Infrastructure.Migrations
             modelBuilder.Entity("MentoringProject.Domain.Entities.OwnerCar", b =>
                 {
                     b.HasOne("MentoringProject.Domain.Entities.Car", "Car")
-                        .WithMany("UserCars")
+                        .WithMany("OwnerCars")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -146,7 +149,7 @@ namespace MentoringProject.Infrastructure.Migrations
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.Car", b =>
                 {
-                    b.Navigation("UserCars");
+                    b.Navigation("OwnerCars");
                 });
 
             modelBuilder.Entity("MentoringProject.Domain.Entities.Owner", b =>

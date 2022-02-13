@@ -9,7 +9,7 @@ namespace MentoringProject.Infrastructure.ConfigurationModel
         public void Configure(EntityTypeBuilder<Owner> builder)
         {
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Id).ValueGeneratedOnAdd();
+            builder.Property(p => p.Id).HasDefaultValueSql("NEWID()");
             builder.Property(p => p.FirstName).IsRequired();
             builder.Property(p => p.LastName).IsRequired();
         }

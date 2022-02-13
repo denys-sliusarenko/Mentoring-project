@@ -23,7 +23,7 @@ namespace MentoringProject.Mapper
 
             // Owner car service
             CreateMap<OwnerCar, OwnerCarDTO>().ReverseMap();
-            CreateMap<OwnerCarCreatedViewModel, OwnerCarDTO>().ReverseMap();
+            CreateMap<OwnerCarCreateViewModel, OwnerCarDTO>().ReverseMap();
             CreateMap<OwnerCarDTO, OwnerCarViewModel>();
         }
     }

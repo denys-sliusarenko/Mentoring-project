@@ -20,6 +20,7 @@ namespace MentoringProject.Infrastructure.Data
         public async Task Create(OwnerCar item)
         {
             await _db.OwnerCars.AddAsync(item);
+            _db.Entry(item).Reference(c => c.Car).Load();
         }
 
         public async Task Delete(Guid id)

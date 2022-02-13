@@ -13,7 +13,7 @@ namespace MentoringProject.Infrastructure.Migrations
                 name: "Cars",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -26,7 +26,7 @@ namespace MentoringProject.Infrastructure.Migrations
                 name: "Owners",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -39,13 +39,14 @@ namespace MentoringProject.Infrastructure.Migrations
                 name: "OwnerCars",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OwnerCars", x => new { x.OwnerId, x.CarId });
+                    table.PrimaryKey("PK_OwnerCars", x => x.Id);
                     table.ForeignKey(
                         name: "FK_OwnerCars_Cars_CarId",
                         column: x => x.CarId,
@@ -65,9 +66,9 @@ namespace MentoringProject.Infrastructure.Migrations
                 columns: new[] { "Id", "Brand", "Color" },
                 values: new object[,]
                 {
-                    { new Guid("3aba351f-87ba-46e4-86aa-2b164eeb6965"), "Mercedes", "Black" },
-                    { new Guid("ba76963d-cfc4-4b49-a026-304a8f099424"), "BMW", "Red" },
-                    { new Guid("dc4540e2-8bf0-4d2b-8e88-14fa7d367a42"), "Nissan", "White" }
+                    { new Guid("589dfdf0-60bd-4854-a7ee-91d6b30dbae9"), "Mercedes", "Black" },
+                    { new Guid("c5a5ccf8-280c-4341-a9e2-678877a432df"), "BMW", "Red" },
+                    { new Guid("d3dbee01-5eaa-4c80-9365-04cd007be277"), "Nissan", "White" }
                 });
 
             migrationBuilder.InsertData(
@@ -75,15 +76,20 @@ namespace MentoringProject.Infrastructure.Migrations
                 columns: new[] { "Id", "FirstName", "LastName" },
                 values: new object[,]
                 {
-                    { new Guid("259844cc-770f-419d-ada4-6c7879aa0033"), "Adam", "Wolker" },
-                    { new Guid("5391fc12-1596-4cf4-9db7-b6c8bd087f13"), "Tom", "Wolker" },
-                    { new Guid("b41fb727-56c6-4e62-8d96-905da9dcf5c9"), "Alice", "Wolker" }
+                    { new Guid("4d41b120-9dbf-48df-8325-2f9c490cf585"), "Tom", "Wolker" },
+                    { new Guid("a13ae253-bd19-400d-8c74-fabb31f0fb45"), "Alice", "Wolker" },
+                    { new Guid("ca67e360-bc52-4e41-9e0a-5ff6d40b1ff4"), "Adam", "Wolker" }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OwnerCars_CarId",
                 table: "OwnerCars",
                 column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OwnerCars_OwnerId",
+                table: "OwnerCars",
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
