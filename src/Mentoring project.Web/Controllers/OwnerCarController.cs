@@ -42,7 +42,7 @@ namespace MentoringProject.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{idOwnerCar}")]
         public async Task<IActionResult> DeleteCarInOwner(Guid idOwnerCar)
         {
             await _ownerCarService.DeleteAsync(idOwnerCar);
