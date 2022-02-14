@@ -1,6 +1,7 @@
 ﻿using MentoringProject.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace MentoringProject.Controllers
 {
@@ -28,7 +29,16 @@ namespace MentoringProject.Controllers
         public IActionResult GenerateOwnerCarsTextReport()
         {
             var file = _reportService.GenerateOwnerCarsTextReport();
-            return file;
+            MemoryStream ms = new();
+            file.FileStream.CopyTo(ms);
+            return Ok(new
+            {
+                blob = ms.ToArray(),
+                fileName = file.FileDownloadName,
+                fileType = file.ContentType,
+            });
+
+           // return file;
         }
     }
 }

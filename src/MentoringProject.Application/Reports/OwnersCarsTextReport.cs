@@ -24,13 +24,20 @@ namespace MentoringProject.Application.Reports
             {
                 sw.WriteLine($"{owner.Id} {owner.FirstName} {owner.LastName}");
                 sw.WriteLine();
-                foreach (var ownercars in owner.OwnersCars)
+                if (owner.OwnersCars.Count > 0)
                 {
-                    sw.WriteLine($"Car id: {ownercars.CarId}");
-                    sw.WriteLine($"Car brand: {ownercars.Car.Brand}");
-                    sw.WriteLine($"Car color: {ownercars.Car.Color}");
-                    sw.WriteLine($"Registration number: {ownercars.RegistrationNumber}");
-                    sw.WriteLine();
+                    foreach (var ownercars in owner.OwnersCars)
+                    {
+                        sw.WriteLine($"Car id: {ownercars.CarId}");
+                        sw.WriteLine($"Car brand: {ownercars.Car.Brand}");
+                        sw.WriteLine($"Car color: {ownercars.Car.Color}");
+                        sw.WriteLine($"Registration number: {ownercars.RegistrationNumber}");
+                        sw.WriteLine();
+                    }
+                }
+                else
+                {
+                    sw.WriteLine($"{owner.Id} {owner.FirstName} {owner.LastName} doesn't have any car");
                 }
 
                 sw.WriteLine();
