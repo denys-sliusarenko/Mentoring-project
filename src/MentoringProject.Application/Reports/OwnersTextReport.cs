@@ -24,9 +24,9 @@ namespace MentoringProject.Application.Reports
             var owners = _unitOfWork.OwnerRepository.GetAll();
             MemoryStream ms = new ();
             StreamWriter sw = new (ms);
-            foreach (var t in owners)
+            foreach (var owner in owners)
             {
-                sw.WriteLine($"{t.Id} {t.FirstName} {t.LastName}");
+                sw.WriteLine($"{owner.Id} {owner.FirstName} {owner.LastName}");
             }
 
             sw.Flush();

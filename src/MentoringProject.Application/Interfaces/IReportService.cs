@@ -12,5 +12,7 @@ namespace MentoringProject.Application.Interfaces
         FileStreamResult GenerateOwnersTextReport();
 
         FileStreamResult GenerateOwnerCarsTextReport();
+
+        FileStreamResult GenerateCarsTextReport();
     }
 }

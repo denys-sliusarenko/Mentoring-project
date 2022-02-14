@@ -17,11 +17,21 @@ namespace MentoringProject.Controllers
         }
 
         [HttpGet]
+        [Route("carsTextReport")]
+        public IActionResult GenerateCarsTextReport()
+        {
+            var file = _reportService.GenerateCarsTextReport();
+            return SendReport(file);
+            //   return file;
+        }
+
+        [HttpGet]
         [Route("ownersTextReport")]
-        public IActionResult GenerateOwnerssTextReport()
+        public IActionResult GenerateOwnersTextReport()
         {
             var file = _reportService.GenerateOwnersTextReport();
-            return file;
+            return SendReport(file);
+            //   return file;
         }
 
         [HttpGet]
@@ -29,6 +39,13 @@ namespace MentoringProject.Controllers
         public IActionResult GenerateOwnerCarsTextReport()
         {
             var file = _reportService.GenerateOwnerCarsTextReport();
+            return SendReport(file);
+
+            // return file;
+        }
+
+        private IActionResult SendReport(FileStreamResult file)
+        {
             MemoryStream ms = new();
             file.FileStream.CopyTo(ms);
             return Ok(new
@@ -37,8 +54,6 @@ namespace MentoringProject.Controllers
                 fileName = file.FileDownloadName,
                 fileType = file.ContentType,
             });
-
-           // return file;
         }
     }
 }

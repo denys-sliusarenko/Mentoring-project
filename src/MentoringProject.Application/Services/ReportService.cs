@@ -30,5 +30,11 @@ namespace MentoringProject.Application.Services
             var report = new Report(new OwnerCarsTextReportFactory(_unitOfWork));
             return report.GenerateReport();
         }
+
+        public FileStreamResult GenerateCarsTextReport()
+        {
+            var report = new Report(new CarsTextReportFactory(_unitOfWork));
+            return report.GenerateReport();
+        }
     }
 }
