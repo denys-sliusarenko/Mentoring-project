@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>ba760c01-338d-43e9-8784-a98d8f34eaed</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/users</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/cars</DockerServiceUrl>
     <DockerServiceName>mentoringproject.web</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
